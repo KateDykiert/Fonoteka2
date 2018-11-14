@@ -1,0 +1,28 @@
+﻿@model IEnumerable<Fonoteka2.Models.wyswietlinstrumentywykonawcy_Result>
+
+@{
+    ViewBag.Title = "Instrumenty";
+}
+
+<h2>Instrumenty</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nazwa)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nazwa)
+        </td>
+    </tr>
+}
+
+</table>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

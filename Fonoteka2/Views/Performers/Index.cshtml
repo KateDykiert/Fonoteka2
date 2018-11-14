@@ -1,0 +1,52 @@
+﻿@model IEnumerable<Fonoteka2.Models.Wykonawca>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Imie)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Nazwisko)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pseudonim)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Zespol.Nazwa)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Imie)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nazwisko)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Pseudonim)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Zespol.Nazwa)
+        </td>
+        <td>
+            @Html.ActionLink("Edytuj", "Edit", new { id=item.IdWykonawcy }) |
+            @Html.ActionLink("Szczegóły", "Details", new { id=item.IdWykonawcy }) |
+            @Html.ActionLink("Usuń", "Delete", new { id=item.IdWykonawcy }) |
+            @Html.ActionLink("Instrumenty", "Instruments", new { id=item.IdWykonawcy })
+        </td>
+    </tr>
+}
+
+</table>

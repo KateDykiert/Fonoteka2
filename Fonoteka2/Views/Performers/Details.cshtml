@@ -1,0 +1,50 @@
+﻿@model Fonoteka2.Models.Wykonawca
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Wykonawca</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Imie)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Imie)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nazwisko)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nazwisko)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pseudonim)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pseudonim)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Zespol.Nazwa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Zespol.Nazwa)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdWykonawcy }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

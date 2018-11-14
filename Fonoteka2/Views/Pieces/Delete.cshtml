@@ -1,0 +1,64 @@
+﻿@model Fonoteka2.Models.Utwor
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Utwor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Tytul)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tytul)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CzasTrwania)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CzasTrwania)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Album.Nazwa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Album.Nazwa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gatunek.Nazwa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gatunek.Nazwa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Zespol.Nazwa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Zespol.Nazwa)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

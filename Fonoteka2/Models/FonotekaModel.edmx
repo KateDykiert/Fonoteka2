@@ -1,0 +1,659 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FonotekaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Album">
+          <Key>
+            <PropertyRef Name="IdAlbumu" />
+          </Key>
+          <Property Name="IdAlbumu" Type="int" Nullable="false" />
+          <Property Name="IdZespolu" Type="int" Nullable="false" />
+          <Property Name="Nazwa" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="DataWydania" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Gatunek">
+          <Key>
+            <PropertyRef Name="IdGatunku" />
+          </Key>
+          <Property Name="IdGatunku" Type="int" Nullable="false" />
+          <Property Name="Nazwa" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Instrument">
+          <Key>
+            <PropertyRef Name="IdInstrumentu" />
+          </Key>
+          <Property Name="IdInstrumentu" Type="int" Nullable="false" />
+          <Property Name="Nazwa" Type="varchar" MaxLength="30" />
+          <Property Name="Rodzaj" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Playlista">
+          <Key>
+            <PropertyRef Name="IdPlaylisty" />
+          </Key>
+          <Property Name="IdPlaylisty" Type="int" Nullable="false" />
+          <Property Name="Nazwa" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Przynaleznosc">
+          <Key>
+            <PropertyRef Name="IdPrzynaleznosci" />
+          </Key>
+          <Property Name="IdPrzynaleznosci" Type="int" Nullable="false" />
+          <Property Name="IdPlaylisty" Type="int" Nullable="false" />
+          <Property Name="IdUtworu" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Umiejetnosc">
+          <Key>
+            <PropertyRef Name="IdUmiejetnosci" />
+          </Key>
+          <Property Name="IdUmiejetnosci" Type="int" Nullable="false" />
+          <Property Name="IdWykonawcy" Type="int" Nullable="false" />
+          <Property Name="IdInstrumentu" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Utwor">
+          <Key>
+            <PropertyRef Name="IdUtworu" />
+          </Key>
+          <Property Name="IdUtworu" Type="int" Nullable="false" />
+          <Property Name="IdZespolu" Type="int" Nullable="false" />
+          <Property Name="IdAlbumu" Type="int" Nullable="false" />
+          <Property Name="IdGatunku" Type="int" Nullable="false" />
+          <Property Name="Tytul" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="CzasTrwania" Type="time" Precision="7" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Wykonawca">
+          <Key>
+            <PropertyRef Name="IdWykonawcy" />
+          </Key>
+          <Property Name="IdWykonawcy" Type="int" Nullable="false" />
+          <Property Name="IdZespolu" Type="int" Nullable="false" />
+          <Property Name="Imie" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Nazwisko" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Pseudonim" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="Zespol">
+          <Key>
+            <PropertyRef Name="IdZespolu" />
+          </Key>
+          <Property Name="IdZespolu" Type="int" Nullable="false" />
+          <Property Name="Nazwa" Type="varchar" MaxLength="60" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Album__IdZespolu__3B75D760">
+          <End Role="Zespol" Type="Self.Zespol" Multiplicity="1" />
+          <End Role="Album" Type="Self.Album" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zespol">
+              <PropertyRef Name="IdZespolu" />
+            </Principal>
+            <Dependent Role="Album">
+              <PropertyRef Name="IdZespolu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Przynalez__IdPla__4D94879B">
+          <End Role="Playlista" Type="Self.Playlista" Multiplicity="1" />
+          <End Role="Przynaleznosc" Type="Self.Przynaleznosc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Playlista">
+              <PropertyRef Name="IdPlaylisty" />
+            </Principal>
+            <Dependent Role="Przynaleznosc">
+              <PropertyRef Name="IdPlaylisty" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Przynalez__IdUtw__4E88ABD4">
+          <End Role="Utwor" Type="Self.Utwor" Multiplicity="1" />
+          <End Role="Przynaleznosc" Type="Self.Przynaleznosc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utwor">
+              <PropertyRef Name="IdUtworu" />
+            </Principal>
+            <Dependent Role="Przynaleznosc">
+              <PropertyRef Name="IdUtworu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Umiejetno__IdIns__48CFD27E">
+          <End Role="Instrument" Type="Self.Instrument" Multiplicity="1" />
+          <End Role="Umiejetnosc" Type="Self.Umiejetnosc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instrument">
+              <PropertyRef Name="IdInstrumentu" />
+            </Principal>
+            <Dependent Role="Umiejetnosc">
+              <PropertyRef Name="IdInstrumentu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Umiejetno__IdWyk__47DBAE45">
+          <End Role="Wykonawca" Type="Self.Wykonawca" Multiplicity="1" />
+          <End Role="Umiejetnosc" Type="Self.Umiejetnosc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wykonawca">
+              <PropertyRef Name="IdWykonawcy" />
+            </Principal>
+            <Dependent Role="Umiejetnosc">
+              <PropertyRef Name="IdWykonawcy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Utwor__IdAlbumu__3F466844">
+          <End Role="Album" Type="Self.Album" Multiplicity="1" />
+          <End Role="Utwor" Type="Self.Utwor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Album">
+              <PropertyRef Name="IdAlbumu" />
+            </Principal>
+            <Dependent Role="Utwor">
+              <PropertyRef Name="IdAlbumu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Utwor__IdGatunku__403A8C7D">
+          <End Role="Gatunek" Type="Self.Gatunek" Multiplicity="1" />
+          <End Role="Utwor" Type="Self.Utwor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gatunek">
+              <PropertyRef Name="IdGatunku" />
+            </Principal>
+            <Dependent Role="Utwor">
+              <PropertyRef Name="IdGatunku" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Utwor__IdZespolu__3E52440B">
+          <End Role="Zespol" Type="Self.Zespol" Multiplicity="1" />
+          <End Role="Utwor" Type="Self.Utwor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zespol">
+              <PropertyRef Name="IdZespolu" />
+            </Principal>
+            <Dependent Role="Utwor">
+              <PropertyRef Name="IdZespolu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Wykonawca__IdZes__4316F928">
+          <End Role="Zespol" Type="Self.Zespol" Multiplicity="1" />
+          <End Role="Wykonawca" Type="Self.Wykonawca" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zespol">
+              <PropertyRef Name="IdZespolu" />
+            </Principal>
+            <Dependent Role="Wykonawca">
+              <PropertyRef Name="IdZespolu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="DodajUtwor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdZespolu" Type="int" Mode="In" />
+          <Parameter Name="IdAlbumu" Type="int" Mode="In" />
+          <Parameter Name="IdGatunku" Type="int" Mode="In" />
+          <Parameter Name="Tytul" Type="varchar" Mode="In" />
+          <Parameter Name="CzasTrwania" Type="time" Mode="In" />
+        </Function>
+        <Function Name="UsunUtwor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdUtworu" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UsunWszystkieUtworuDanegoGatunku" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NazwaGatunku" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="wyswietlinstrumentywykonawcy" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Idwykonawcy" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ZmienTytul" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdUtworu" Type="int" Mode="In" />
+          <Parameter Name="Tytul" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="FonotekaDBModelStoreContainer">
+          <EntitySet Name="Album" EntityType="Self.Album" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gatunek" EntityType="Self.Gatunek" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Instrument" EntityType="Self.Instrument" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Playlista" EntityType="Self.Playlista" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Przynaleznosc" EntityType="Self.Przynaleznosc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Umiejetnosc" EntityType="Self.Umiejetnosc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Utwor" EntityType="Self.Utwor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Wykonawca" EntityType="Self.Wykonawca" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zespol" EntityType="Self.Zespol" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Album__IdZespolu__3B75D760" Association="Self.FK__Album__IdZespolu__3B75D760">
+            <End Role="Zespol" EntitySet="Zespol" />
+            <End Role="Album" EntitySet="Album" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Przynalez__IdPla__4D94879B" Association="Self.FK__Przynalez__IdPla__4D94879B">
+            <End Role="Playlista" EntitySet="Playlista" />
+            <End Role="Przynaleznosc" EntitySet="Przynaleznosc" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Przynalez__IdUtw__4E88ABD4" Association="Self.FK__Przynalez__IdUtw__4E88ABD4">
+            <End Role="Utwor" EntitySet="Utwor" />
+            <End Role="Przynaleznosc" EntitySet="Przynaleznosc" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Umiejetno__IdIns__48CFD27E" Association="Self.FK__Umiejetno__IdIns__48CFD27E">
+            <End Role="Instrument" EntitySet="Instrument" />
+            <End Role="Umiejetnosc" EntitySet="Umiejetnosc" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Umiejetno__IdWyk__47DBAE45" Association="Self.FK__Umiejetno__IdWyk__47DBAE45">
+            <End Role="Wykonawca" EntitySet="Wykonawca" />
+            <End Role="Umiejetnosc" EntitySet="Umiejetnosc" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Utwor__IdAlbumu__3F466844" Association="Self.FK__Utwor__IdAlbumu__3F466844">
+            <End Role="Album" EntitySet="Album" />
+            <End Role="Utwor" EntitySet="Utwor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Utwor__IdGatunku__403A8C7D" Association="Self.FK__Utwor__IdGatunku__403A8C7D">
+            <End Role="Gatunek" EntitySet="Gatunek" />
+            <End Role="Utwor" EntitySet="Utwor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Utwor__IdZespolu__3E52440B" Association="Self.FK__Utwor__IdZespolu__3E52440B">
+            <End Role="Zespol" EntitySet="Zespol" />
+            <End Role="Utwor" EntitySet="Utwor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Wykonawca__IdZes__4316F928" Association="Self.FK__Wykonawca__IdZes__4316F928">
+            <End Role="Zespol" EntitySet="Zespol" />
+            <End Role="Wykonawca" EntitySet="Wykonawca" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FonotekaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Album">
+          <Key>
+            <PropertyRef Name="IdAlbumu" />
+          </Key>
+          <Property Name="IdAlbumu" Type="Int32" Nullable="false" />
+          <Property Name="IdZespolu" Type="Int32" Nullable="false" />
+          <Property Name="Nazwa" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DataWydania" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Zespol" Relationship="Self.FK__Album__IdZespolu__3B75D760" FromRole="Album" ToRole="Zespol" />
+          <NavigationProperty Name="Utwor" Relationship="Self.FK__Utwor__IdAlbumu__3F466844" FromRole="Album" ToRole="Utwor" />
+        </EntityType>
+        <EntityType Name="Gatunek">
+          <Key>
+            <PropertyRef Name="IdGatunku" />
+          </Key>
+          <Property Name="IdGatunku" Type="Int32" Nullable="false" />
+          <Property Name="Nazwa" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Utwor" Relationship="Self.FK__Utwor__IdGatunku__403A8C7D" FromRole="Gatunek" ToRole="Utwor" />
+        </EntityType>
+        <EntityType Name="Instrument">
+          <Key>
+            <PropertyRef Name="IdInstrumentu" />
+          </Key>
+          <Property Name="IdInstrumentu" Type="Int32" Nullable="false" />
+          <Property Name="Nazwa" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Rodzaj" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Umiejetnosc" Relationship="Self.FK__Umiejetno__IdIns__48CFD27E" FromRole="Instrument" ToRole="Umiejetnosc" />
+        </EntityType>
+        <EntityType Name="Playlista">
+          <Key>
+            <PropertyRef Name="IdPlaylisty" />
+          </Key>
+          <Property Name="IdPlaylisty" Type="Int32" Nullable="false" />
+          <Property Name="Nazwa" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Przynaleznosc" Relationship="Self.FK__Przynalez__IdPla__4D94879B" FromRole="Playlista" ToRole="Przynaleznosc" />
+        </EntityType>
+        <EntityType Name="Przynaleznosc">
+          <Key>
+            <PropertyRef Name="IdPrzynaleznosci" />
+          </Key>
+          <Property Name="IdPrzynaleznosci" Type="Int32" Nullable="false" />
+          <Property Name="IdPlaylisty" Type="Int32" Nullable="false" />
+          <Property Name="IdUtworu" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Playlista" Relationship="Self.FK__Przynalez__IdPla__4D94879B" FromRole="Przynaleznosc" ToRole="Playlista" />
+          <NavigationProperty Name="Utwor" Relationship="Self.FK__Przynalez__IdUtw__4E88ABD4" FromRole="Przynaleznosc" ToRole="Utwor" />
+        </EntityType>
+        <EntityType Name="Umiejetnosc">
+          <Key>
+            <PropertyRef Name="IdUmiejetnosci" />
+          </Key>
+          <Property Name="IdUmiejetnosci" Type="Int32" Nullable="false" />
+          <Property Name="IdWykonawcy" Type="Int32" Nullable="false" />
+          <Property Name="IdInstrumentu" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Instrument" Relationship="Self.FK__Umiejetno__IdIns__48CFD27E" FromRole="Umiejetnosc" ToRole="Instrument" />
+          <NavigationProperty Name="Wykonawca" Relationship="Self.FK__Umiejetno__IdWyk__47DBAE45" FromRole="Umiejetnosc" ToRole="Wykonawca" />
+        </EntityType>
+        <EntityType Name="Utwor">
+          <Key>
+            <PropertyRef Name="IdUtworu" />
+          </Key>
+          <Property Name="IdUtworu" Type="Int32" Nullable="false" />
+          <Property Name="IdZespolu" Type="Int32" Nullable="false" />
+          <Property Name="IdAlbumu" Type="Int32" Nullable="false" />
+          <Property Name="IdGatunku" Type="Int32" Nullable="false" />
+          <Property Name="Tytul" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CzasTrwania" Type="Time" Nullable="false" Precision="7" />
+          <NavigationProperty Name="Album" Relationship="Self.FK__Utwor__IdAlbumu__3F466844" FromRole="Utwor" ToRole="Album" />
+          <NavigationProperty Name="Gatunek" Relationship="Self.FK__Utwor__IdGatunku__403A8C7D" FromRole="Utwor" ToRole="Gatunek" />
+          <NavigationProperty Name="Przynaleznosc" Relationship="Self.FK__Przynalez__IdUtw__4E88ABD4" FromRole="Utwor" ToRole="Przynaleznosc" />
+          <NavigationProperty Name="Zespol" Relationship="Self.FK__Utwor__IdZespolu__3E52440B" FromRole="Utwor" ToRole="Zespol" />
+        </EntityType>
+        <EntityType Name="Wykonawca">
+          <Key>
+            <PropertyRef Name="IdWykonawcy" />
+          </Key>
+          <Property Name="IdWykonawcy" Type="Int32" Nullable="false" />
+          <Property Name="IdZespolu" Type="Int32" Nullable="false" />
+          <Property Name="Imie" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nazwisko" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Pseudonim" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Umiejetnosc" Relationship="Self.FK__Umiejetno__IdWyk__47DBAE45" FromRole="Wykonawca" ToRole="Umiejetnosc" />
+          <NavigationProperty Name="Zespol" Relationship="Self.FK__Wykonawca__IdZes__4316F928" FromRole="Wykonawca" ToRole="Zespol" />
+        </EntityType>
+        <EntityType Name="Zespol">
+          <Key>
+            <PropertyRef Name="IdZespolu" />
+          </Key>
+          <Property Name="IdZespolu" Type="Int32" Nullable="false" />
+          <Property Name="Nazwa" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Album" Relationship="Self.FK__Album__IdZespolu__3B75D760" FromRole="Zespol" ToRole="Album" />
+          <NavigationProperty Name="Utwor" Relationship="Self.FK__Utwor__IdZespolu__3E52440B" FromRole="Zespol" ToRole="Utwor" />
+          <NavigationProperty Name="Wykonawca" Relationship="Self.FK__Wykonawca__IdZes__4316F928" FromRole="Zespol" ToRole="Wykonawca" />
+        </EntityType>
+        <Association Name="FK__Album__IdZespolu__3B75D760">
+          <End Role="Zespol" Type="Self.Zespol" Multiplicity="1" />
+          <End Role="Album" Type="Self.Album" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zespol">
+              <PropertyRef Name="IdZespolu" />
+            </Principal>
+            <Dependent Role="Album">
+              <PropertyRef Name="IdZespolu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Utwor__IdAlbumu__3F466844">
+          <End Role="Album" Type="Self.Album" Multiplicity="1" />
+          <End Role="Utwor" Type="Self.Utwor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Album">
+              <PropertyRef Name="IdAlbumu" />
+            </Principal>
+            <Dependent Role="Utwor">
+              <PropertyRef Name="IdAlbumu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Utwor__IdGatunku__403A8C7D">
+          <End Role="Gatunek" Type="Self.Gatunek" Multiplicity="1" />
+          <End Role="Utwor" Type="Self.Utwor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gatunek">
+              <PropertyRef Name="IdGatunku" />
+            </Principal>
+            <Dependent Role="Utwor">
+              <PropertyRef Name="IdGatunku" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Umiejetno__IdIns__48CFD27E">
+          <End Role="Instrument" Type="Self.Instrument" Multiplicity="1" />
+          <End Role="Umiejetnosc" Type="Self.Umiejetnosc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Instrument">
+              <PropertyRef Name="IdInstrumentu" />
+            </Principal>
+            <Dependent Role="Umiejetnosc">
+              <PropertyRef Name="IdInstrumentu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Przynalez__IdPla__4D94879B">
+          <End Role="Playlista" Type="Self.Playlista" Multiplicity="1" />
+          <End Role="Przynaleznosc" Type="Self.Przynaleznosc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Playlista">
+              <PropertyRef Name="IdPlaylisty" />
+            </Principal>
+            <Dependent Role="Przynaleznosc">
+              <PropertyRef Name="IdPlaylisty" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Przynalez__IdUtw__4E88ABD4">
+          <End Role="Utwor" Type="Self.Utwor" Multiplicity="1" />
+          <End Role="Przynaleznosc" Type="Self.Przynaleznosc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Utwor">
+              <PropertyRef Name="IdUtworu" />
+            </Principal>
+            <Dependent Role="Przynaleznosc">
+              <PropertyRef Name="IdUtworu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Umiejetno__IdWyk__47DBAE45">
+          <End Role="Wykonawca" Type="Self.Wykonawca" Multiplicity="1" />
+          <End Role="Umiejetnosc" Type="Self.Umiejetnosc" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wykonawca">
+              <PropertyRef Name="IdWykonawcy" />
+            </Principal>
+            <Dependent Role="Umiejetnosc">
+              <PropertyRef Name="IdWykonawcy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Utwor__IdZespolu__3E52440B">
+          <End Role="Zespol" Type="Self.Zespol" Multiplicity="1" />
+          <End Role="Utwor" Type="Self.Utwor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zespol">
+              <PropertyRef Name="IdZespolu" />
+            </Principal>
+            <Dependent Role="Utwor">
+              <PropertyRef Name="IdZespolu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Wykonawca__IdZes__4316F928">
+          <End Role="Zespol" Type="Self.Zespol" Multiplicity="1" />
+          <End Role="Wykonawca" Type="Self.Wykonawca" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zespol">
+              <PropertyRef Name="IdZespolu" />
+            </Principal>
+            <Dependent Role="Wykonawca">
+              <PropertyRef Name="IdZespolu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="FonotekaDBEntities3" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Album" EntityType="Self.Album" />
+          <EntitySet Name="Gatunek" EntityType="Self.Gatunek" />
+          <EntitySet Name="Instrument" EntityType="Self.Instrument" />
+          <EntitySet Name="Playlista" EntityType="Self.Playlista" />
+          <EntitySet Name="Przynaleznosc" EntityType="Self.Przynaleznosc" />
+          <EntitySet Name="Umiejetnosc" EntityType="Self.Umiejetnosc" />
+          <EntitySet Name="Utwor" EntityType="Self.Utwor" />
+          <EntitySet Name="Wykonawca" EntityType="Self.Wykonawca" />
+          <EntitySet Name="Zespol" EntityType="Self.Zespol" />
+          <AssociationSet Name="FK__Album__IdZespolu__3B75D760" Association="Self.FK__Album__IdZespolu__3B75D760">
+            <End Role="Zespol" EntitySet="Zespol" />
+            <End Role="Album" EntitySet="Album" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Utwor__IdAlbumu__3F466844" Association="Self.FK__Utwor__IdAlbumu__3F466844">
+            <End Role="Album" EntitySet="Album" />
+            <End Role="Utwor" EntitySet="Utwor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Utwor__IdGatunku__403A8C7D" Association="Self.FK__Utwor__IdGatunku__403A8C7D">
+            <End Role="Gatunek" EntitySet="Gatunek" />
+            <End Role="Utwor" EntitySet="Utwor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Umiejetno__IdIns__48CFD27E" Association="Self.FK__Umiejetno__IdIns__48CFD27E">
+            <End Role="Instrument" EntitySet="Instrument" />
+            <End Role="Umiejetnosc" EntitySet="Umiejetnosc" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Przynalez__IdPla__4D94879B" Association="Self.FK__Przynalez__IdPla__4D94879B">
+            <End Role="Playlista" EntitySet="Playlista" />
+            <End Role="Przynaleznosc" EntitySet="Przynaleznosc" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Przynalez__IdUtw__4E88ABD4" Association="Self.FK__Przynalez__IdUtw__4E88ABD4">
+            <End Role="Utwor" EntitySet="Utwor" />
+            <End Role="Przynaleznosc" EntitySet="Przynaleznosc" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Umiejetno__IdWyk__47DBAE45" Association="Self.FK__Umiejetno__IdWyk__47DBAE45">
+            <End Role="Wykonawca" EntitySet="Wykonawca" />
+            <End Role="Umiejetnosc" EntitySet="Umiejetnosc" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Utwor__IdZespolu__3E52440B" Association="Self.FK__Utwor__IdZespolu__3E52440B">
+            <End Role="Zespol" EntitySet="Zespol" />
+            <End Role="Utwor" EntitySet="Utwor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Wykonawca__IdZes__4316F928" Association="Self.FK__Wykonawca__IdZes__4316F928">
+            <End Role="Zespol" EntitySet="Zespol" />
+            <End Role="Wykonawca" EntitySet="Wykonawca" />
+          </AssociationSet>
+          <FunctionImport Name="DodajUtwor">
+            <Parameter Name="IdZespolu" Mode="In" Type="Int32" />
+            <Parameter Name="IdAlbumu" Mode="In" Type="Int32" />
+            <Parameter Name="IdGatunku" Mode="In" Type="Int32" />
+            <Parameter Name="Tytul" Mode="In" Type="String" />
+            <Parameter Name="CzasTrwania" Mode="In" Type="Time" />
+          </FunctionImport>
+          <FunctionImport Name="UsunUtwor">
+          <Parameter Name="IdUtworu" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UsunWszystkieUtworuDanegoGatunku">
+          <Parameter Name="NazwaGatunku" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ZmienTytul">
+            <Parameter Name="IdUtworu" Mode="In" Type="Int32" />
+            <Parameter Name="Tytul" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="wyswietlinstrumentywykonawcy" ReturnType="Collection(FonotekaDBModel.wyswietlinstrumentywykonawcy_Result)">
+          <Parameter Name="Idwykonawcy" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="wyswietlinstrumentywykonawcy_Result">
+          <Property Type="String" Name="pseudonim" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Nazwa" Nullable="true" MaxLength="30" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FonotekaDBModelStoreContainer" CdmEntityContainer="FonotekaDBEntities3">
+          <EntitySetMapping Name="Album">
+            <EntityTypeMapping TypeName="FonotekaDBModel.Album">
+              <MappingFragment StoreEntitySet="Album">
+                <ScalarProperty Name="IdAlbumu" ColumnName="IdAlbumu" />
+                <ScalarProperty Name="IdZespolu" ColumnName="IdZespolu" />
+                <ScalarProperty Name="Nazwa" ColumnName="Nazwa" />
+                <ScalarProperty Name="DataWydania" ColumnName="DataWydania" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gatunek">
+            <EntityTypeMapping TypeName="FonotekaDBModel.Gatunek">
+              <MappingFragment StoreEntitySet="Gatunek">
+                <ScalarProperty Name="IdGatunku" ColumnName="IdGatunku" />
+                <ScalarProperty Name="Nazwa" ColumnName="Nazwa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Instrument">
+            <EntityTypeMapping TypeName="FonotekaDBModel.Instrument">
+              <MappingFragment StoreEntitySet="Instrument">
+                <ScalarProperty Name="IdInstrumentu" ColumnName="IdInstrumentu" />
+                <ScalarProperty Name="Nazwa" ColumnName="Nazwa" />
+                <ScalarProperty Name="Rodzaj" ColumnName="Rodzaj" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Playlista">
+            <EntityTypeMapping TypeName="FonotekaDBModel.Playlista">
+              <MappingFragment StoreEntitySet="Playlista">
+                <ScalarProperty Name="IdPlaylisty" ColumnName="IdPlaylisty" />
+                <ScalarProperty Name="Nazwa" ColumnName="Nazwa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Przynaleznosc">
+            <EntityTypeMapping TypeName="FonotekaDBModel.Przynaleznosc">
+              <MappingFragment StoreEntitySet="Przynaleznosc">
+                <ScalarProperty Name="IdPrzynaleznosci" ColumnName="IdPrzynaleznosci" />
+                <ScalarProperty Name="IdPlaylisty" ColumnName="IdPlaylisty" />
+                <ScalarProperty Name="IdUtworu" ColumnName="IdUtworu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Umiejetnosc">
+            <EntityTypeMapping TypeName="FonotekaDBModel.Umiejetnosc">
+              <MappingFragment StoreEntitySet="Umiejetnosc">
+                <ScalarProperty Name="IdUmiejetnosci" ColumnName="IdUmiejetnosci" />
+                <ScalarProperty Name="IdWykonawcy" ColumnName="IdWykonawcy" />
+                <ScalarProperty Name="IdInstrumentu" ColumnName="IdInstrumentu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Utwor">
+            <EntityTypeMapping TypeName="FonotekaDBModel.Utwor">
+              <MappingFragment StoreEntitySet="Utwor">
+                <ScalarProperty Name="IdUtworu" ColumnName="IdUtworu" />
+                <ScalarProperty Name="IdZespolu" ColumnName="IdZespolu" />
+                <ScalarProperty Name="IdAlbumu" ColumnName="IdAlbumu" />
+                <ScalarProperty Name="IdGatunku" ColumnName="IdGatunku" />
+                <ScalarProperty Name="Tytul" ColumnName="Tytul" />
+                <ScalarProperty Name="CzasTrwania" ColumnName="CzasTrwania" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wykonawca">
+            <EntityTypeMapping TypeName="FonotekaDBModel.Wykonawca">
+              <MappingFragment StoreEntitySet="Wykonawca">
+                <ScalarProperty Name="IdWykonawcy" ColumnName="IdWykonawcy" />
+                <ScalarProperty Name="IdZespolu" ColumnName="IdZespolu" />
+                <ScalarProperty Name="Imie" ColumnName="Imie" />
+                <ScalarProperty Name="Nazwisko" ColumnName="Nazwisko" />
+                <ScalarProperty Name="Pseudonim" ColumnName="Pseudonim" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zespol">
+            <EntityTypeMapping TypeName="FonotekaDBModel.Zespol">
+              <MappingFragment StoreEntitySet="Zespol">
+                <ScalarProperty Name="IdZespolu" ColumnName="IdZespolu" />
+                <ScalarProperty Name="Nazwa" ColumnName="Nazwa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="DodajUtwor" FunctionName="FonotekaDBModel.Store.DodajUtwor" />
+          <FunctionImportMapping FunctionImportName="UsunUtwor" FunctionName="FonotekaDBModel.Store.UsunUtwor" />
+          <FunctionImportMapping FunctionImportName="UsunWszystkieUtworuDanegoGatunku" FunctionName="FonotekaDBModel.Store.UsunWszystkieUtworuDanegoGatunku" />
+          <FunctionImportMapping FunctionImportName="ZmienTytul" FunctionName="FonotekaDBModel.Store.ZmienTytul" />
+          <FunctionImportMapping FunctionImportName="wyswietlinstrumentywykonawcy" FunctionName="FonotekaDBModel.Store.wyswietlinstrumentywykonawcy">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FonotekaDBModel.wyswietlinstrumentywykonawcy_Result">
+                <ScalarProperty Name="pseudonim" ColumnName="pseudonim" />
+                <ScalarProperty Name="Nazwa" ColumnName="Nazwa" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

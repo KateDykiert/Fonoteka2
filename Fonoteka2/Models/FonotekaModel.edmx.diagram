@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="332b7d0d093e438c960c612735e5bd10" Name="Diagram1">
+        <EntityTypeShape EntityType="FonotekaDBModel.Album" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FonotekaDBModel.Gatunek" Width="1.5" PointX="3" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FonotekaDBModel.Instrument" Width="1.5" PointX="3" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FonotekaDBModel.Playlista" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FonotekaDBModel.Przynaleznosc" Width="1.5" PointX="7.5" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FonotekaDBModel.Umiejetnosc" Width="1.5" PointX="5.25" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FonotekaDBModel.Utwor" Width="1.5" PointX="5.25" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="FonotekaDBModel.Wykonawca" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FonotekaDBModel.Zespol" Width="1.5" PointX="0.75" PointY="3.125" IsExpanded="true" />
+        <AssociationConnector Association="FonotekaDBModel.FK__Album__IdZespolu__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="FonotekaDBModel.FK__Utwor__IdAlbumu__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="FonotekaDBModel.FK__Utwor__IdGatunku__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="FonotekaDBModel.FK__Umiejetno__IdIns__48CFD27E" ManuallyRouted="false" />
+        <AssociationConnector Association="FonotekaDBModel.FK__Przynalez__IdPla__4D94879B" ManuallyRouted="false" />
+        <AssociationConnector Association="FonotekaDBModel.FK__Przynalez__IdUtw__4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="FonotekaDBModel.FK__Umiejetno__IdWyk__47DBAE45" ManuallyRouted="false" />
+        <AssociationConnector Association="FonotekaDBModel.FK__Utwor__IdZespolu__3E52440B" ManuallyRouted="false" />
+        <AssociationConnector Association="FonotekaDBModel.FK__Wykonawca__IdZes__4316F928" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

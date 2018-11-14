@@ -1,0 +1,58 @@
+﻿@model Fonoteka2.Models.Utwor
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Utwor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Tytul)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Tytul)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CzasTrwania)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CzasTrwania)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Album.Nazwa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Album.Nazwa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gatunek.Nazwa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gatunek.Nazwa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Zespol.Nazwa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Zespol.Nazwa)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdUtworu }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

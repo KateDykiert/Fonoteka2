@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Fonoteka2.Models.Utwor>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Tytul)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CzasTrwania)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Album.Nazwa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gatunek.Nazwa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Zespol.Nazwa)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tytul)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CzasTrwania)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Album.Nazwa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Gatunek.Nazwa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Zespol.Nazwa)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.IdUtworu }) |
+            @Html.ActionLink("Details", "Details", new { id=item.IdUtworu }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.IdUtworu })
+        </td>
+    </tr>
+}
+
+</table>
