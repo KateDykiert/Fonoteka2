@@ -20,24 +20,24 @@ namespace Fonoteka2.Models
         {
             this.Umiejetnosc = new HashSet<Umiejetnosc>();
         }
-    
+
         public int IdWykonawcy { get; set; }
-        [Display(Name ="Zespó³ downa")]
         public int IdZespolu { get; set; }
         [Required(ErrorMessage = "Imiê nie mo¿e byæ puste!")]
         [RegularExpression(
             @"^([a-zA-Z])+$",
             ErrorMessage = "Imiê zawiera niedozwolone znaki!")]
         [MinLength(2, ErrorMessage = "Minimalna d³ugoœæ imienia wynosi 2")]
-
+        [MaxLength(60, ErrorMessage = "Maksymalna d³ugoœæ imienia wynosi 60")]
         public string Imie { get; set; }
         [Required(ErrorMessage = "Nazwisko nie mo¿e byæ puste!")]
         [RegularExpression(
             @"^([a-zA-Z])+$",
             ErrorMessage = "Nazwisko zawiera niedozwolone znaki!")]
+        [MaxLength(60, ErrorMessage = "Maksymalna d³ugoœæ nazwiska wynosi 60")]
         public string Nazwisko { get; set; }
         public string Pseudonim { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Umiejetnosc> Umiejetnosc { get; set; }
         public virtual Zespol Zespol { get; set; }
