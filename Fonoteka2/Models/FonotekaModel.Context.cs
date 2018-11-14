@@ -101,5 +101,30 @@ namespace Fonoteka2.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<wyswietlinstrumentywykonawcy_Result>("wyswietlinstrumentywykonawcy", idwykonawcyParameter);
         }
+    
+        public virtual int DodajWykonawce(Nullable<int> idWykonawcy, Nullable<int> idZespolu, string imie, string nazwisko, string pseudonim)
+        {
+            var idWykonawcyParameter = idWykonawcy.HasValue ?
+                new ObjectParameter("IdWykonawcy", idWykonawcy) :
+                new ObjectParameter("IdWykonawcy", typeof(int));
+    
+            var idZespoluParameter = idZespolu.HasValue ?
+                new ObjectParameter("IdZespolu", idZespolu) :
+                new ObjectParameter("IdZespolu", typeof(int));
+    
+            var imieParameter = imie != null ?
+                new ObjectParameter("Imie", imie) :
+                new ObjectParameter("Imie", typeof(string));
+    
+            var nazwiskoParameter = nazwisko != null ?
+                new ObjectParameter("Nazwisko", nazwisko) :
+                new ObjectParameter("Nazwisko", typeof(string));
+    
+            var pseudonimParameter = pseudonim != null ?
+                new ObjectParameter("Pseudonim", pseudonim) :
+                new ObjectParameter("Pseudonim", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DodajWykonawce", idWykonawcyParameter, idZespoluParameter, imieParameter, nazwiskoParameter, pseudonimParameter);
+        }
     }
 }

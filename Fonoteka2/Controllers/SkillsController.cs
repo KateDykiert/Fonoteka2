@@ -51,10 +51,26 @@ namespace Fonoteka2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdUmiejetnosci,IdWykonawcy,IdInstrumentu")] Umiejetnosc umiejetnosc)
         {
+            ViewBag.Exception = null;
+            string msg = null;
             if (ModelState.IsValid)
             {
                 db.Umiejetnosc.Add(umiejetnosc);
+                try { 
                 db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    if (e.InnerException == null)
+                        ViewBag.Exception = "Niepoprawne dane wykonawcy";
+                    else
+                        msg = e.InnerException.InnerException.Message;
+                    ViewBag.Exception = msg;
+                    ViewBag.Exception2 = "Baza danych zwrocila wyjatek!";
+                    ViewBag.IdInstrumentu = new SelectList(db.Instrument, "IdInstrumentu", "Nazwa", umiejetnosc.IdInstrumentu);
+                    ViewBag.IdWykonawcy = new SelectList(db.Wykonawca, "IdWykonawcy", "Imie", umiejetnosc.IdWykonawcy);
+                    return View(umiejetnosc);
+                }
                 return RedirectToAction("Index");
             }
 

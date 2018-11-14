@@ -48,17 +48,62 @@ namespace Fonoteka2.Controllers
             return View();
         }
 
-        // POST: Performers/Create
+        // GET: Performers/Create2
+        public ActionResult Create2()
+        {
+            ViewBag.IdZespolu = new SelectList(db.Zespol, "IdZespolu", "Nazwa");
+            return View();
+        }
+
+        // POST: Performers/Create2
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create2(int IdWykonawcy, int IdZespolu, String Imie, String Nazwisko, String Pseudonim)
+        {
+            if (ModelState.IsValid)
+            {
+                ViewBag.Exception = null;
+                try
+                {
+                    db.DodajWykonawce(IdWykonawcy,IdZespolu,Imie,Nazwisko,Pseudonim);
+                    db.SaveChanges();
+                }
+                catch(Exception e) {
+                    if (e.InnerException == null)
+                        ViewBag.Exception = "Niepoprawne dane wykonawcy";
+                    else
+                        ViewBag.Exception = e.InnerException.InnerException.Message;
+                    return View("Details");
+                }
+                return RedirectToAction("Index");
+            }
+            
+            return View("Index");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdWykonawcy,IdZespolu,Imie,Nazwisko,Pseudonim")] Wykonawca wykonawca)
         {
             if (ModelState.IsValid)
             {
-                db.Wykonawca.Add(wykonawca);
-                db.SaveChanges();
+                ViewBag.Exception = null;
+                try
+                {
+                    db.Wykonawca.Add(wykonawca);
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    if (e.InnerException == null)
+                        ViewBag.Exception = "Niepoprawne dane wykonawcy";
+                    else
+                        ViewBag.Exception2 = "Baza danych zwrocila wyjatek!";
+                        ViewBag.Exception = e.InnerException.InnerException.Message;
+                    return View(wykonawca);
+                }
                 return RedirectToAction("Index");
             }
 

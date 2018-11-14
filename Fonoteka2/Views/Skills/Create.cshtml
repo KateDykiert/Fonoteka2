@@ -5,6 +5,8 @@
 }
 
 <h2>Create</h2>
+<h3 class ="text-danger">@ViewBag.Exception2</h3>
+<h4 class="text-danger" font size="10">@ViewBag.Exception</h4>
 
 
 @using (Html.BeginForm()) 
@@ -24,7 +26,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.IdWykonawcy, "IdWykonawcy", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.IdWykonawcy, "Wykonawca", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("IdWykonawcy", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.IdWykonawcy, "", new { @class = "text-danger" })
@@ -32,7 +34,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.IdInstrumentu, "IdInstrumentu", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.IdInstrumentu, "Instrument", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("IdInstrumentu", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.IdInstrumentu, "", new { @class = "text-danger" })

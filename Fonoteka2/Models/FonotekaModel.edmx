@@ -69,9 +69,9 @@
           </Key>
           <Property Name="IdWykonawcy" Type="int" Nullable="false" />
           <Property Name="IdZespolu" Type="int" Nullable="false" />
-          <Property Name="Imie" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="Nazwisko" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="Pseudonim" Type="varchar" MaxLength="30" />
+          <Property Name="Imie" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="Nazwisko" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="Pseudonim" Type="varchar" MaxLength="60" />
         </EntityType>
         <EntityType Name="Zespol">
           <Key>
@@ -194,6 +194,13 @@
           <Parameter Name="IdGatunku" Type="int" Mode="In" />
           <Parameter Name="Tytul" Type="varchar" Mode="In" />
           <Parameter Name="CzasTrwania" Type="time" Mode="In" />
+        </Function>
+        <Function Name="DodajWykonawce" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdWykonawcy" Type="int" Mode="In" />
+          <Parameter Name="IdZespolu" Type="int" Mode="In" />
+          <Parameter Name="Imie" Type="varchar" Mode="In" />
+          <Parameter Name="Nazwisko" Type="varchar" Mode="In" />
+          <Parameter Name="Pseudonim" Type="varchar" Mode="In" />
         </Function>
         <Function Name="UsunUtwor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdUtworu" Type="int" Mode="In" />
@@ -336,9 +343,9 @@
           </Key>
           <Property Name="IdWykonawcy" Type="Int32" Nullable="false" />
           <Property Name="IdZespolu" Type="Int32" Nullable="false" />
-          <Property Name="Imie" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Nazwisko" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Pseudonim" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Imie" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Nazwisko" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Pseudonim" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Umiejetnosc" Relationship="Self.FK__Umiejetno__IdWyk__47DBAE45" FromRole="Wykonawca" ToRole="Umiejetnosc" />
           <NavigationProperty Name="Zespol" Relationship="Self.FK__Wykonawca__IdZes__4316F928" FromRole="Wykonawca" ToRole="Zespol" />
         </EntityType>
@@ -526,6 +533,13 @@
           <FunctionImport Name="wyswietlinstrumentywykonawcy" ReturnType="Collection(FonotekaDBModel.wyswietlinstrumentywykonawcy_Result)">
           <Parameter Name="Idwykonawcy" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="DodajWykonawce">
+            <Parameter Name="IdWykonawcy" Mode="In" Type="Int32" />
+            <Parameter Name="IdZespolu" Mode="In" Type="Int32" />
+            <Parameter Name="Imie" Mode="In" Type="String" />
+            <Parameter Name="Nazwisko" Mode="In" Type="String" />
+            <Parameter Name="Pseudonim" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="wyswietlinstrumentywykonawcy_Result">
           <Property Type="String" Name="pseudonim" Nullable="true" MaxLength="30" />
@@ -633,6 +647,7 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DodajWykonawce" FunctionName="FonotekaDBModel.Store.DodajWykonawce" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

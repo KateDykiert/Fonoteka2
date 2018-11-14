@@ -317,6 +317,7 @@
     <Content Include="Views\Bands\Edit.cshtml" />
     <Content Include="Views\Bands\Index.cshtml" />
     <Content Include="Views\Performers\Instruments.cshtml" />
+    <Content Include="Views\Performers\Create2.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

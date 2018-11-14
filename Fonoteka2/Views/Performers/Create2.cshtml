@@ -1,11 +1,10 @@
 ﻿@model Fonoteka2.Models.Wykonawca
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create2";
 }
 
-
-<h2 class = "text-danger">@ViewBag.Exception</h2>
+<h2>Create By Procedure</h2>
 
 
 @using (Html.BeginForm()) 
@@ -25,7 +24,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.IdZespolu, "idZespolu", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.IdZespolu, "IdZespolu", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("IdZespolu", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.IdZespolu, "", new { @class = "text-danger" })

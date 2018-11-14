@@ -11,7 +11,8 @@ namespace Fonoteka2.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Wykonawca
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,7 +23,15 @@ namespace Fonoteka2.Models
     
         public int IdWykonawcy { get; set; }
         public int IdZespolu { get; set; }
+        [Required(ErrorMessage = "Imiê nie mo¿e byæ puste!")]
+        [RegularExpression(
+            @"^([a-zA-Z])+$",
+            ErrorMessage = "Imiê zawiera niedozwolone znaki!")]
         public string Imie { get; set; }
+        [Required(ErrorMessage = "Imiê nie mo¿e byæ puste!")]
+        [RegularExpression(
+            @"^([a-zA-Z])+$",
+            ErrorMessage = "Imiê zawiera niedozwolone znaki!")]
         public string Nazwisko { get; set; }
         public string Pseudonim { get; set; }
     
