@@ -104,9 +104,11 @@ namespace Fonoteka2.Controllers
                         ViewBag.Exception = "Niepoprawne dane wykonawcy";
                     else
                     {
-                        ViewBag.Exception2 = "Baza danych zwrocila wyjatek!";
+                        
                         ViewBag.Exception = e.InnerException.InnerException.Message;
                     }
+                    ViewBag.Exception2 = "Baza danych zwrocila wyjatek!";
+                    ViewBag.IdZespolu = new SelectList(db.Zespol, "IdZespolu", "Nazwa", wykonawca.IdZespolu);
                     return View(wykonawca);
                 }
                 return RedirectToAction("Index");
@@ -141,9 +143,24 @@ namespace Fonoteka2.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(wykonawca).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                
+                    db.Entry(wykonawca).State = EntityState.Modified;
+                try { 
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                } catch (Exception e)
+                {
+                    if (e.InnerException == null)
+                        ViewBag.Exception = "Niepoprawne dane wykonawcy";
+                    else
+                    {
+                       String msg = e.InnerException.InnerException.Message;
+                       ViewBag.Exception = msg;
+                    }
+                    ViewBag.Exception2 = "Baza danych zwrocila wyjatek!";
+                    ViewBag.IdZespolu = new SelectList(db.Zespol, "IdZespolu", "Nazwa", wykonawca.IdZespolu);
+                    return View(wykonawca);
+                }
             }
             ViewBag.IdZespolu = new SelectList(db.Zespol, "IdZespolu", "Nazwa", wykonawca.IdZespolu);
             return View(wykonawca);

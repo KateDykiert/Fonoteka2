@@ -64,8 +64,10 @@ namespace Fonoteka2.Controllers
                     if (e.InnerException == null)
                         ViewBag.Exception = "Niepoprawne dane wykonawcy";
                     else
+                    {
                         msg = e.InnerException.InnerException.Message;
-                    ViewBag.Exception = msg;
+                        ViewBag.Exception = msg;
+                    }
                     ViewBag.Exception2 = "Baza danych zwrocila wyjatek!";
                     ViewBag.IdInstrumentu = new SelectList(db.Instrument, "IdInstrumentu", "Nazwa", umiejetnosc.IdInstrumentu);
                     ViewBag.IdWykonawcy = new SelectList(db.Wykonawca, "IdWykonawcy", "Imie", umiejetnosc.IdWykonawcy);
