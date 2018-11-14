@@ -74,8 +74,11 @@ namespace Fonoteka2.Controllers
                     if (e.InnerException == null)
                         ViewBag.Exception = "Niepoprawne dane wykonawcy";
                     else
-                        ViewBag.Exception = e.InnerException.InnerException.Message;
-                    return View("Details");
+                        ViewBag.Exception = e.InnerException.Message;
+                    ViewBag.Exception2 = "Baza danych zwrocila wyjatek!";
+                    ViewBag.IdZespolu = new SelectList(db.Zespol, "IdZespolu", "Nazwa");
+
+                    return View("Create2");
                 }
                 return RedirectToAction("Index");
             }
@@ -100,8 +103,10 @@ namespace Fonoteka2.Controllers
                     if (e.InnerException == null)
                         ViewBag.Exception = "Niepoprawne dane wykonawcy";
                     else
+                    {
                         ViewBag.Exception2 = "Baza danych zwrocila wyjatek!";
                         ViewBag.Exception = e.InnerException.InnerException.Message;
+                    }
                     return View(wykonawca);
                 }
                 return RedirectToAction("Index");
