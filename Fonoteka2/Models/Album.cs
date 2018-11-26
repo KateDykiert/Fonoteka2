@@ -24,6 +24,9 @@ namespace Fonoteka2.Models
         public int IdZespolu { get; set; }
         public string Nazwa { get; set; }
         public System.DateTime DataWydania { get; set; }
+        public Nullable<int> Godziny { get; set; }
+        public Nullable<int> Minuty { get; set; }
+        public Nullable<int> Sekundy { get; set; }
     
         public virtual Zespol Zespol { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -13,6 +13,9 @@
           <Property Name="IdZespolu" Type="int" Nullable="false" />
           <Property Name="Nazwa" Type="varchar" MaxLength="30" Nullable="false" />
           <Property Name="DataWydania" Type="date" Nullable="false" />
+          <Property Name="Godziny" Type="int" />
+          <Property Name="Minuty" Type="int" />
+          <Property Name="Sekundy" Type="int" />
         </EntityType>
         <EntityType Name="Gatunek">
           <Key>
@@ -61,7 +64,8 @@
           <Property Name="IdAlbumu" Type="int" Nullable="false" />
           <Property Name="IdGatunku" Type="int" Nullable="false" />
           <Property Name="Tytul" Type="varchar" MaxLength="60" Nullable="false" />
-          <Property Name="CzasTrwania" Type="time" Precision="7" Nullable="false" />
+          <Property Name="Minuty" Type="int" />
+          <Property Name="Sekundy" Type="int" />
         </EntityType>
         <EntityType Name="Wykonawca">
           <Key>
@@ -193,7 +197,8 @@
           <Parameter Name="IdAlbumu" Type="int" Mode="In" />
           <Parameter Name="IdGatunku" Type="int" Mode="In" />
           <Parameter Name="Tytul" Type="varchar" Mode="In" />
-          <Parameter Name="CzasTrwania" Type="time" Mode="In" />
+          <Parameter Name="Minuty" Type="int" Mode="In" />
+          <Parameter Name="Sekundy" Type="int" Mode="In" />
         </Function>
         <Function Name="DodajWykonawce" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdWykonawcy" Type="int" Mode="In" />
@@ -276,6 +281,9 @@
           <Property Name="DataWydania" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Zespol" Relationship="Self.FK__Album__IdZespolu__3B75D760" FromRole="Album" ToRole="Zespol" />
           <NavigationProperty Name="Utwor" Relationship="Self.FK__Utwor__IdAlbumu__3F466844" FromRole="Album" ToRole="Utwor" />
+          <Property Name="Godziny" Type="Int32" />
+          <Property Name="Minuty" Type="Int32" />
+          <Property Name="Sekundy" Type="Int32" />
         </EntityType>
         <EntityType Name="Gatunek">
           <Key>
@@ -331,11 +339,12 @@
           <Property Name="IdAlbumu" Type="Int32" Nullable="false" />
           <Property Name="IdGatunku" Type="Int32" Nullable="false" />
           <Property Name="Tytul" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CzasTrwania" Type="Time" Nullable="false" Precision="7" />
           <NavigationProperty Name="Album" Relationship="Self.FK__Utwor__IdAlbumu__3F466844" FromRole="Utwor" ToRole="Album" />
           <NavigationProperty Name="Gatunek" Relationship="Self.FK__Utwor__IdGatunku__403A8C7D" FromRole="Utwor" ToRole="Gatunek" />
           <NavigationProperty Name="Przynaleznosc" Relationship="Self.FK__Przynalez__IdUtw__4E88ABD4" FromRole="Utwor" ToRole="Przynaleznosc" />
           <NavigationProperty Name="Zespol" Relationship="Self.FK__Utwor__IdZespolu__3E52440B" FromRole="Utwor" ToRole="Zespol" />
+          <Property Name="Minuty" Type="Int32" />
+          <Property Name="Sekundy" Type="Int32" />
         </EntityType>
         <EntityType Name="Wykonawca">
           <Key>
@@ -518,7 +527,8 @@
             <Parameter Name="IdAlbumu" Mode="In" Type="Int32" />
             <Parameter Name="IdGatunku" Mode="In" Type="Int32" />
             <Parameter Name="Tytul" Mode="In" Type="String" />
-            <Parameter Name="CzasTrwania" Mode="In" Type="Time" />
+            <Parameter Name="Minuty" Mode="In" Type="Int32" />
+            <Parameter Name="Sekundy" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="UsunUtwor">
           <Parameter Name="IdUtworu" Mode="In" Type="Int32" />
@@ -554,6 +564,9 @@
           <EntitySetMapping Name="Album">
             <EntityTypeMapping TypeName="FonotekaDBModel.Album">
               <MappingFragment StoreEntitySet="Album">
+                <ScalarProperty Name="Sekundy" ColumnName="Sekundy" />
+                <ScalarProperty Name="Minuty" ColumnName="Minuty" />
+                <ScalarProperty Name="Godziny" ColumnName="Godziny" />
                 <ScalarProperty Name="IdAlbumu" ColumnName="IdAlbumu" />
                 <ScalarProperty Name="IdZespolu" ColumnName="IdZespolu" />
                 <ScalarProperty Name="Nazwa" ColumnName="Nazwa" />
@@ -607,12 +620,13 @@
           <EntitySetMapping Name="Utwor">
             <EntityTypeMapping TypeName="FonotekaDBModel.Utwor">
               <MappingFragment StoreEntitySet="Utwor">
+                <ScalarProperty Name="Sekundy" ColumnName="Sekundy" />
+                <ScalarProperty Name="Minuty" ColumnName="Minuty" />
                 <ScalarProperty Name="IdUtworu" ColumnName="IdUtworu" />
                 <ScalarProperty Name="IdZespolu" ColumnName="IdZespolu" />
                 <ScalarProperty Name="IdAlbumu" ColumnName="IdAlbumu" />
                 <ScalarProperty Name="IdGatunku" ColumnName="IdGatunku" />
                 <ScalarProperty Name="Tytul" ColumnName="Tytul" />
-                <ScalarProperty Name="CzasTrwania" ColumnName="CzasTrwania" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

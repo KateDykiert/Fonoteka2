@@ -48,7 +48,7 @@ namespace Fonoteka2.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdAlbumu,IdZespolu,Nazwa,DataWydania")] Album album)
+        public ActionResult Create([Bind(Include = "IdAlbumu,IdZespolu,Nazwa,DataWydania,Godziny,Minuty,Sekundy")] Album album)
         {
             if (ModelState.IsValid)
             {

@@ -25,7 +25,8 @@ namespace Fonoteka2.Models
         public int IdAlbumu { get; set; }
         public int IdGatunku { get; set; }
         public string Tytul { get; set; }
-        public System.TimeSpan CzasTrwania { get; set; }
+        public Nullable<int> Minuty { get; set; }
+        public Nullable<int> Sekundy { get; set; }
     
         public virtual Album Album { get; set; }
         public virtual Gatunek Gatunek { get; set; }

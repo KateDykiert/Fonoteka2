@@ -50,12 +50,28 @@ namespace Fonoteka2.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdUtworu,IdZespolu,IdAlbumu,IdGatunku,Tytul,CzasTrwania")] Utwor utwor)
+        public ActionResult Create([Bind(Include = "IdUtworu,IdZespolu,IdAlbumu,IdGatunku,Tytul,Minuty,Sekundy")] Utwor utwor)
         {
             if (ModelState.IsValid)
             {
-                db.Utwor.Add(utwor);
-                db.SaveChanges();
+                ViewBag.Exception = null;
+                try
+                {
+                    db.Utwor.Add(utwor);
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    if (e.InnerException == null)
+                        ViewBag.Exception = "Niepoprawne dane utworu";
+                    else
+                        ViewBag.Exception = e.InnerException.InnerException.Message;
+                    ViewBag.Exception2 = "Baza danych zwrocila wyjatek!";
+                    ViewBag.IdZespolu = new SelectList(db.Zespol, "IdZespolu", "Nazwa");
+                    ViewBag.IdAlbumu = new SelectList(db.Album, "IdAlbumu", "Nazwa");
+                    ViewBag.IdGatunku = new SelectList(db.Gatunek, "IdGatunku", "Nazwa");
+                    return View("Create");
+                }
                 return RedirectToAction("Index");
             }
 
@@ -88,18 +104,37 @@ namespace Fonoteka2.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdUtworu,IdZespolu,IdAlbumu,IdGatunku,Tytul,CzasTrwania")] Utwor utwor)
+        public ActionResult Edit([Bind(Include = "IdUtworu,IdZespolu,IdAlbumu,IdGatunku,Tytul,Minuty,Sekundy")] Utwor utwor)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(utwor).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+                catch (Exception e)
+                {
+                    if (e.InnerException == null)
+                        ViewBag.Exception = "Niepoprawne dane utworu";
+                    else
+                    {
+                        String msg = e.InnerException.InnerException.Message;
+                        ViewBag.Exception = msg;
+                    }
+                    ViewBag.Exception2 = "Baza danych zwrocila wyjatek!";
+                    ViewBag.IdAlbumu = new SelectList(db.Album, "IdAlbumu", "Nazwa", utwor.IdAlbumu);
+                    ViewBag.IdGatunku = new SelectList(db.Gatunek, "IdGatunku", "Nazwa", utwor.IdGatunku);
+                    ViewBag.IdZespolu = new SelectList(db.Zespol, "IdZespolu", "Nazwa", utwor.IdZespolu);
+                    return View(utwor);
+                }
             }
             ViewBag.IdAlbumu = new SelectList(db.Album, "IdAlbumu", "Nazwa", utwor.IdAlbumu);
             ViewBag.IdGatunku = new SelectList(db.Gatunek, "IdGatunku", "Nazwa", utwor.IdGatunku);
             ViewBag.IdZespolu = new SelectList(db.Zespol, "IdZespolu", "Nazwa", utwor.IdZespolu);
             return View(utwor);
+
         }
 
         // GET: Pieces/Delete/5

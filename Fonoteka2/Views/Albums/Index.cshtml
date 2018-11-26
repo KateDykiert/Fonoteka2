@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Albumy</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -16,6 +16,15 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.DataWydania)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Godziny)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Minuty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sekundy)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Zespol.Nazwa)
@@ -32,12 +41,21 @@
             @Html.DisplayFor(modelItem => item.DataWydania)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.Godziny)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Minuty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sekundy)
+        </td>
+        <td>
             @Html.DisplayFor(modelItem => item.Zespol.Nazwa)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.IdAlbumu }) |
-            @Html.ActionLink("Details", "Details", new { id=item.IdAlbumu }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdAlbumu })
+            @Html.ActionLink("Edit", "Edit", new { id = item.IdAlbumu }) |
+            @Html.ActionLink("Details", "Details", new { id = item.IdAlbumu }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.IdAlbumu })
         </td>
     </tr>
 }

@@ -5,12 +5,14 @@
 }
 
 <h2>Create</h2>
+<h3 class="text-danger">@ViewBag.Exception2</h3>
+<h4 class="text-danger" font size="10">@ViewBag.Exception</h4>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Utwor</h4>
         <hr />
@@ -56,10 +58,18 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CzasTrwania, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Minuty, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.CzasTrwania, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.CzasTrwania, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.Minuty, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Minuty, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Sekundy, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Sekundy, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Sekundy, "", new { @class = "text-danger" })
             </div>
         </div>
 

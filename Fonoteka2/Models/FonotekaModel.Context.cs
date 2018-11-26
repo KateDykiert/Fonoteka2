@@ -37,7 +37,7 @@ namespace Fonoteka2.Models
         public virtual DbSet<Wykonawca> Wykonawca { get; set; }
         public virtual DbSet<Zespol> Zespol { get; set; }
     
-        public virtual int DodajUtwor(Nullable<int> idZespolu, Nullable<int> idAlbumu, Nullable<int> idGatunku, string tytul, Nullable<System.TimeSpan> czasTrwania)
+        public virtual int DodajUtwor(Nullable<int> idZespolu, Nullable<int> idAlbumu, Nullable<int> idGatunku, string tytul, Nullable<int> minuty, Nullable<int> sekundy)
         {
             var idZespoluParameter = idZespolu.HasValue ?
                 new ObjectParameter("IdZespolu", idZespolu) :
@@ -55,11 +55,15 @@ namespace Fonoteka2.Models
                 new ObjectParameter("Tytul", tytul) :
                 new ObjectParameter("Tytul", typeof(string));
     
-            var czasTrwaniaParameter = czasTrwania.HasValue ?
-                new ObjectParameter("CzasTrwania", czasTrwania) :
-                new ObjectParameter("CzasTrwania", typeof(System.TimeSpan));
+            var minutyParameter = minuty.HasValue ?
+                new ObjectParameter("Minuty", minuty) :
+                new ObjectParameter("Minuty", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DodajUtwor", idZespoluParameter, idAlbumuParameter, idGatunkuParameter, tytulParameter, czasTrwaniaParameter);
+            var sekundyParameter = sekundy.HasValue ?
+                new ObjectParameter("Sekundy", sekundy) :
+                new ObjectParameter("Sekundy", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DodajUtwor", idZespoluParameter, idAlbumuParameter, idGatunkuParameter, tytulParameter, minutyParameter, sekundyParameter);
         }
     
         public virtual int UsunUtwor(Nullable<int> idUtworu)
