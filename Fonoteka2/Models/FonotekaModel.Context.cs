@@ -36,6 +36,7 @@ namespace Fonoteka2.Models
         public virtual DbSet<Utwor> Utwor { get; set; }
         public virtual DbSet<Wykonawca> Wykonawca { get; set; }
         public virtual DbSet<Zespol> Zespol { get; set; }
+        public virtual DbSet<UtworyAlbumuView> UtworyAlbumuView { get; set; }
     
         public virtual int DodajUtwor(Nullable<int> idZespolu, Nullable<int> idAlbumu, Nullable<int> idGatunku, string tytul, Nullable<int> minuty, Nullable<int> sekundy)
         {
@@ -129,6 +130,33 @@ namespace Fonoteka2.Models
                 new ObjectParameter("Pseudonim", typeof(string));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DodajWykonawce", idWykonawcyParameter, idZespoluParameter, imieParameter, nazwiskoParameter, pseudonimParameter);
+        }
+    
+        public virtual ObjectResult<UtworyAlbumu_Result> UtworyAlbumu(Nullable<int> idAlbumu)
+        {
+            var idAlbumuParameter = idAlbumu.HasValue ?
+                new ObjectParameter("IdAlbumu", idAlbumu) :
+                new ObjectParameter("IdAlbumu", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UtworyAlbumu_Result>("UtworyAlbumu", idAlbumuParameter);
+        }
+    
+        public virtual ObjectResult<UtworyAlbumu1_Result> UtworyAlbumu1(Nullable<int> idAlbumu)
+        {
+            var idAlbumuParameter = idAlbumu.HasValue ?
+                new ObjectParameter("IdAlbumu", idAlbumu) :
+                new ObjectParameter("IdAlbumu", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UtworyAlbumu1_Result>("UtworyAlbumu1", idAlbumuParameter);
+        }
+    
+        public virtual ObjectResult<UtworyZView_Result> UtworyZView(Nullable<int> idAlbumu)
+        {
+            var idAlbumuParameter = idAlbumu.HasValue ?
+                new ObjectParameter("IdAlbumu", idAlbumu) :
+                new ObjectParameter("IdAlbumu", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UtworyZView_Result>("UtworyZView", idAlbumuParameter);
         }
     }
 }

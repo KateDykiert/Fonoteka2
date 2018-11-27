@@ -1,0 +1,56 @@
+﻿@model IEnumerable<Fonoteka2.Models.UtworyAlbumu1_Result>
+
+@{
+    ViewBag.Title = "SciezkaDzwiekowa";
+}
+
+<h2>SciezkaDzwiekowa</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Tytul)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Minuty)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sekundy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Gatunek)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Zespół)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Tytul)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Minuty)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sekundy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Gatunek)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Zespół)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+        </td>
+    </tr>
+}
+
+</table>
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>

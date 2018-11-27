@@ -53,6 +53,8 @@
             @Html.DisplayFor(modelItem => item.Zespol.Nazwa)
         </td>
         <td>
+            @Html.ActionLink("Ścieżka z View", "SciezkaDzwiekowaView", new { id = item.IdAlbumu }) |
+            @Html.ActionLink("Ścieżka", "SciezkaDzwiekowa", new { id = item.IdAlbumu }) |
             @Html.ActionLink("Edit", "Edit", new { id = item.IdAlbumu }) |
             @Html.ActionLink("Details", "Details", new { id = item.IdAlbumu }) |
             @Html.ActionLink("Delete", "Delete", new { id = item.IdAlbumu })

@@ -84,6 +84,21 @@
           <Property Name="IdZespolu" Type="int" Nullable="false" />
           <Property Name="Nazwa" Type="varchar" MaxLength="60" Nullable="false" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="UtworyAlbumuView">
+          <Key>
+            <PropertyRef Name="Tytul" />
+            <PropertyRef Name="Zespół" />
+            <PropertyRef Name="IdAlbumu" />
+          </Key>
+          <Property Name="Tytul" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="Minuty" Type="int" />
+          <Property Name="Sekundy" Type="int" />
+          <Property Name="Gatunek" Type="varchar" MaxLength="30" />
+          <Property Name="Zespół" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="IdAlbumu" Type="int" Nullable="false" />
+        </EntityType>
         <Association Name="FK__Album__IdZespolu__3B75D760">
           <End Role="Zespol" Type="Self.Zespol" Multiplicity="1" />
           <End Role="Album" Type="Self.Album" Multiplicity="*" />
@@ -213,6 +228,12 @@
         <Function Name="UsunWszystkieUtworuDanegoGatunku" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="NazwaGatunku" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="UtworyAlbumu" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdAlbumu" Type="int" Mode="In" />
+        </Function>
+        <Function Name="UtworyZView" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdAlbumu" Type="int" Mode="In" />
+        </Function>
         <Function Name="wyswietlinstrumentywykonawcy" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Idwykonawcy" Type="int" Mode="In" />
         </Function>
@@ -230,6 +251,16 @@
           <EntitySet Name="Utwor" EntityType="Self.Utwor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Wykonawca" EntityType="Self.Wykonawca" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Zespol" EntityType="Self.Zespol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UtworyAlbumuView" EntityType="Self.UtworyAlbumuView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [UtworyAlbumuView].[Tytul] AS [Tytul], 
+    [UtworyAlbumuView].[Minuty] AS [Minuty], 
+    [UtworyAlbumuView].[Sekundy] AS [Sekundy], 
+    [UtworyAlbumuView].[Gatunek] AS [Gatunek], 
+    [UtworyAlbumuView].[Zespół] AS [Zespół], 
+    [UtworyAlbumuView].[IdAlbumu] AS [IdAlbumu]
+    FROM [dbo].[UtworyAlbumuView] AS [UtworyAlbumuView]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK__Album__IdZespolu__3B75D760" Association="Self.FK__Album__IdZespolu__3B75D760">
             <End Role="Zespol" EntitySet="Zespol" />
             <End Role="Album" EntitySet="Album" />
@@ -550,10 +581,54 @@
             <Parameter Name="Nazwisko" Mode="In" Type="String" />
             <Parameter Name="Pseudonim" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="UtworyAlbumu" ReturnType="Collection(FonotekaDBModel.UtworyAlbumu_Result)">
+          <Parameter Name="IdAlbumu" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="UtworyAlbumu1" ReturnType="Collection(FonotekaDBModel.UtworyAlbumu1_Result)">
+          <Parameter Name="IdAlbumu" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="UtworyAlbumuView" EntityType="FonotekaDBModel.UtworyAlbumuView" />
+          <FunctionImport Name="UtworyZView" ReturnType="Collection(FonotekaDBModel.UtworyZView_Result)">
+          <Parameter Name="IdAlbumu" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="wyswietlinstrumentywykonawcy_Result">
           <Property Type="String" Name="pseudonim" Nullable="true" MaxLength="30" />
           <Property Type="String" Name="Nazwa" Nullable="true" MaxLength="30" />
+        </ComplexType>
+        <ComplexType Name="UtworyAlbumu_Result">
+          <Property Type="String" Name="Zespół" Nullable="false" MaxLength="60" />
+          <Property Type="String" Name="Gatunek" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Album" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Tytul" Nullable="false" MaxLength="60" />
+        </ComplexType>
+        <ComplexType Name="UtworyAlbumu1_Result">
+          <Property Type="String" Name="Tytul" Nullable="false" MaxLength="60" />
+          <Property Type="Int32" Name="Minuty" Nullable="true" />
+          <Property Type="Int32" Name="Sekundy" Nullable="true" />
+          <Property Type="String" Name="Gatunek" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Zespół" Nullable="false" MaxLength="60" />
+        </ComplexType>
+        <EntityType Name="UtworyAlbumuView">
+          <Key>
+            <PropertyRef Name="Tytul" />
+            <PropertyRef Name="Zespół" />
+            <PropertyRef Name="IdAlbumu" />
+          </Key>
+          <Property Name="Tytul" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Minuty" Type="Int32" />
+          <Property Name="Sekundy" Type="Int32" />
+          <Property Name="Gatunek" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Zespół" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="IdAlbumu" Type="Int32" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="UtworyZView_Result">
+          <Property Type="String" Name="Tytul" Nullable="false" MaxLength="60" />
+          <Property Type="Int32" Name="Minuty" Nullable="true" />
+          <Property Type="Int32" Name="Sekundy" Nullable="true" />
+          <Property Type="String" Name="Gatunek" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Zespół" Nullable="false" MaxLength="60" />
+          <Property Type="Int32" Name="IdAlbumu" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -662,6 +737,41 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="DodajWykonawce" FunctionName="FonotekaDBModel.Store.DodajWykonawce" />
+          <FunctionImportMapping FunctionImportName="UtworyAlbumu1" FunctionName="FonotekaDBModel.Store.UtworyAlbumu">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FonotekaDBModel.UtworyAlbumu1_Result">
+                <ScalarProperty Name="Tytul" ColumnName="Tytul" />
+                <ScalarProperty Name="Minuty" ColumnName="Minuty" />
+                <ScalarProperty Name="Sekundy" ColumnName="Sekundy" />
+                <ScalarProperty Name="Gatunek" ColumnName="Gatunek" />
+                <ScalarProperty Name="Zespół" ColumnName="Zespół" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="UtworyAlbumuView">
+            <EntityTypeMapping TypeName="FonotekaDBModel.UtworyAlbumuView">
+              <MappingFragment StoreEntitySet="UtworyAlbumuView">
+                <ScalarProperty Name="IdAlbumu" ColumnName="IdAlbumu" />
+                <ScalarProperty Name="Zespół" ColumnName="Zespół" />
+                <ScalarProperty Name="Gatunek" ColumnName="Gatunek" />
+                <ScalarProperty Name="Sekundy" ColumnName="Sekundy" />
+                <ScalarProperty Name="Minuty" ColumnName="Minuty" />
+                <ScalarProperty Name="Tytul" ColumnName="Tytul" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="UtworyZView" FunctionName="FonotekaDBModel.Store.UtworyZView">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FonotekaDBModel.UtworyZView_Result">
+                <ScalarProperty Name="Tytul" ColumnName="Tytul" />
+                <ScalarProperty Name="Minuty" ColumnName="Minuty" />
+                <ScalarProperty Name="Sekundy" ColumnName="Sekundy" />
+                <ScalarProperty Name="Gatunek" ColumnName="Gatunek" />
+                <ScalarProperty Name="Zespół" ColumnName="Zespół" />
+                <ScalarProperty Name="IdAlbumu" ColumnName="IdAlbumu" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

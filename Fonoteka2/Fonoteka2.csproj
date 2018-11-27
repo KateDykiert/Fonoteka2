@@ -204,6 +204,18 @@
     <Compile Include="Models\Utwor.cs">
       <DependentUpon>FonotekaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UtworyAlbumu1_Result.cs">
+      <DependentUpon>FonotekaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UtworyAlbumuView.cs">
+      <DependentUpon>FonotekaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UtworyAlbumu_Result.cs">
+      <DependentUpon>FonotekaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UtworyZView_Result.cs">
+      <DependentUpon>FonotekaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Wykonawca.cs">
       <DependentUpon>FonotekaModel.tt</DependentUpon>
     </Compile>
@@ -318,6 +330,8 @@
     <Content Include="Views\Bands\Index.cshtml" />
     <Content Include="Views\Performers\Instruments.cshtml" />
     <Content Include="Views\Performers\Create2.cshtml" />
+    <Content Include="Views\Albums\SciezkaDzwiekowa.cshtml" />
+    <Content Include="Views\Albums\SciezkaDzwiekowaView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

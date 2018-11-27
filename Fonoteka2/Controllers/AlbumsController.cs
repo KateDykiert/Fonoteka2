@@ -21,6 +21,16 @@ namespace Fonoteka2.Controllers
             return View(album.ToList());
         }
 
+        public ActionResult SciezkaDzwiekowa(int? id)
+        {
+            return View(db.UtworyAlbumu1(id).ToList());
+        }
+
+        public ActionResult SciezkaDzwiekowaView(int? id)
+        {
+            return View(db.UtworyZView(id).ToList());
+        }
+
         // GET: Albums/Details/5
         public ActionResult Details(int? id)
         {
