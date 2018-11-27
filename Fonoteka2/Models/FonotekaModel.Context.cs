@@ -158,5 +158,23 @@ namespace Fonoteka2.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UtworyZView_Result>("UtworyZView", idAlbumuParameter);
         }
+    
+        public virtual int DeleteUtworyZView(Nullable<int> idUtworu)
+        {
+            var idUtworuParameter = idUtworu.HasValue ?
+                new ObjectParameter("IdUtworu", idUtworu) :
+                new ObjectParameter("IdUtworu", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DeleteUtworyZView", idUtworuParameter);
+        }
+    
+        public virtual ObjectResult<UtworyZView1_Result> UtworyZView1(Nullable<int> idAlbumu)
+        {
+            var idAlbumuParameter = idAlbumu.HasValue ?
+                new ObjectParameter("IdAlbumu", idAlbumu) :
+                new ObjectParameter("IdAlbumu", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UtworyZView1_Result>("UtworyZView1", idAlbumuParameter);
+        }
     }
 }

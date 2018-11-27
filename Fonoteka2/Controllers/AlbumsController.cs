@@ -28,7 +28,45 @@ namespace Fonoteka2.Controllers
 
         public ActionResult SciezkaDzwiekowaView(int? id)
         {
-            return View(db.UtworyZView(id).ToList());
+            return View(db.UtworyZView1(id).ToList());
+        }
+
+        public ActionResult EditZView(int? id, int? idAlbumu)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Utwor utwor = db.Utwor.Find(id);
+            if (utwor == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.IdZespolu = new SelectList(db.Zespol, "IdZespolu", "Nazwa", utwor.IdZespolu);
+            ViewBag.IdGatunku = new SelectList(db.Gatunek, "IdGatunku", "Nazwa", utwor.IdGatunku);
+            ViewBag.IdAlbumu = new SelectList(db.Album, "IdAlbumu", "Nazwa", utwor.IdAlbumu);
+            return View(utwor);
+        }
+
+        public ActionResult EditZView([Bind(Include = "IdAlbumu,IdZespolu,IdGatunku,Tytuł,Minuty,Sekundy")] Utwor utwor)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Entry(utwor).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("SciezkaDzwiekowaView");
+            }
+            ViewBag.IdZespolu = new SelectList(db.Zespol, "IdZespolu", "Nazwa", utwor.IdZespolu);
+            ViewBag.IdGatunku = new SelectList(db.Gatunek, "IdGatunku", "Nazwa", utwor.IdGatunku);
+            ViewBag.IdAlbumu = new SelectList(db.Album, "IdAlbumu", "Nazwa", utwor.IdAlbumu);
+            return View(utwor);
+        }
+
+            public ActionResult DeleteZView(int? id, int? idAlbumu)
+        {
+            db.DeleteUtworyZView(id);
+            return View(db.UtworyZView1(idAlbumu).ToList());
+            
         }
 
         // GET: Albums/Details/5

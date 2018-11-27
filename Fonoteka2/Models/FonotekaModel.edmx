@@ -61,7 +61,7 @@
           </Key>
           <Property Name="IdUtworu" Type="int" Nullable="false" />
           <Property Name="IdZespolu" Type="int" Nullable="false" />
-          <Property Name="IdAlbumu" Type="int" Nullable="false" />
+          <Property Name="IdAlbumu" Type="int" />
           <Property Name="IdGatunku" Type="int" Nullable="false" />
           <Property Name="Tytul" Type="varchar" MaxLength="60" Nullable="false" />
           <Property Name="Minuty" Type="int" />
@@ -88,10 +88,12 @@
 warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="UtworyAlbumuView">
           <Key>
+            <PropertyRef Name="IdUtworu" />
             <PropertyRef Name="Tytul" />
             <PropertyRef Name="Zespół" />
             <PropertyRef Name="IdAlbumu" />
           </Key>
+          <Property Name="IdUtworu" Type="int" Nullable="false" />
           <Property Name="Tytul" Type="varchar" MaxLength="60" Nullable="false" />
           <Property Name="Minuty" Type="int" />
           <Property Name="Sekundy" Type="int" />
@@ -159,8 +161,8 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Utwor__IdAlbumu__3F466844">
-          <End Role="Album" Type="Self.Album" Multiplicity="1" />
+        <Association Name="FK__Utwor__IdAlbumu__06CD04F7">
+          <End Role="Album" Type="Self.Album" Multiplicity="0..1" />
           <End Role="Utwor" Type="Self.Utwor" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Album">
@@ -171,7 +173,7 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Utwor__IdGatunku__403A8C7D">
+        <Association Name="FK__Utwor__IdGatunku__07C12930">
           <End Role="Gatunek" Type="Self.Gatunek" Multiplicity="1" />
           <End Role="Utwor" Type="Self.Utwor" Multiplicity="*" />
           <ReferentialConstraint>
@@ -183,7 +185,7 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__Utwor__IdZespolu__3E52440B">
+        <Association Name="FK__Utwor__IdZespolu__08B54D69">
           <End Role="Zespol" Type="Self.Zespol" Multiplicity="1" />
           <End Role="Utwor" Type="Self.Utwor" Multiplicity="*" />
           <ReferentialConstraint>
@@ -207,6 +209,9 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="DeleteUtworyZView" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdUtworu" Type="int" Mode="In" />
+        </Function>
         <Function Name="DodajUtwor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdZespolu" Type="int" Mode="In" />
           <Parameter Name="IdAlbumu" Type="int" Mode="In" />
@@ -253,6 +258,7 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
           <EntitySet Name="Zespol" EntityType="Self.Zespol" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UtworyAlbumuView" EntityType="Self.UtworyAlbumuView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
+    [UtworyAlbumuView].[IdUtworu] AS [IdUtworu], 
     [UtworyAlbumuView].[Tytul] AS [Tytul], 
     [UtworyAlbumuView].[Minuty] AS [Minuty], 
     [UtworyAlbumuView].[Sekundy] AS [Sekundy], 
@@ -281,15 +287,15 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
             <End Role="Wykonawca" EntitySet="Wykonawca" />
             <End Role="Umiejetnosc" EntitySet="Umiejetnosc" />
           </AssociationSet>
-          <AssociationSet Name="FK__Utwor__IdAlbumu__3F466844" Association="Self.FK__Utwor__IdAlbumu__3F466844">
+          <AssociationSet Name="FK__Utwor__IdAlbumu__06CD04F7" Association="Self.FK__Utwor__IdAlbumu__06CD04F7">
             <End Role="Album" EntitySet="Album" />
             <End Role="Utwor" EntitySet="Utwor" />
           </AssociationSet>
-          <AssociationSet Name="FK__Utwor__IdGatunku__403A8C7D" Association="Self.FK__Utwor__IdGatunku__403A8C7D">
+          <AssociationSet Name="FK__Utwor__IdGatunku__07C12930" Association="Self.FK__Utwor__IdGatunku__07C12930">
             <End Role="Gatunek" EntitySet="Gatunek" />
             <End Role="Utwor" EntitySet="Utwor" />
           </AssociationSet>
-          <AssociationSet Name="FK__Utwor__IdZespolu__3E52440B" Association="Self.FK__Utwor__IdZespolu__3E52440B">
+          <AssociationSet Name="FK__Utwor__IdZespolu__08B54D69" Association="Self.FK__Utwor__IdZespolu__08B54D69">
             <End Role="Zespol" EntitySet="Zespol" />
             <End Role="Utwor" EntitySet="Utwor" />
           </AssociationSet>
@@ -367,7 +373,7 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
           </Key>
           <Property Name="IdUtworu" Type="Int32" Nullable="false" />
           <Property Name="IdZespolu" Type="Int32" Nullable="false" />
-          <Property Name="IdAlbumu" Type="Int32" Nullable="false" />
+          <Property Name="IdAlbumu" Type="Int32" />
           <Property Name="IdGatunku" Type="Int32" Nullable="false" />
           <Property Name="Tytul" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Album" Relationship="Self.FK__Utwor__IdAlbumu__3F466844" FromRole="Utwor" ToRole="Album" />
@@ -412,7 +418,7 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
           </ReferentialConstraint>
         </Association>
         <Association Name="FK__Utwor__IdAlbumu__3F466844">
-          <End Role="Album" Type="Self.Album" Multiplicity="1" />
+          <End Role="Album" Type="Self.Album" Multiplicity="0..1" />
           <End Role="Utwor" Type="Self.Utwor" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Album">
@@ -587,9 +593,15 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
           <FunctionImport Name="UtworyAlbumu1" ReturnType="Collection(FonotekaDBModel.UtworyAlbumu1_Result)">
           <Parameter Name="IdAlbumu" Mode="In" Type="Int32" />
           </FunctionImport>
-          <EntitySet Name="UtworyAlbumuView" EntityType="FonotekaDBModel.UtworyAlbumuView" />
           <FunctionImport Name="UtworyZView" ReturnType="Collection(FonotekaDBModel.UtworyZView_Result)">
           <Parameter Name="IdAlbumu" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteUtworyZView">
+          <Parameter Name="IdUtworu" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="UtworyAlbumuView" EntityType="FonotekaDBModel.UtworyAlbumuView" />
+          <FunctionImport Name="UtworyZView1" ReturnType="Collection(FonotekaDBModel.UtworyZView1_Result)">
+            <Parameter Name="IdAlbumu" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="wyswietlinstrumentywykonawcy_Result">
@@ -609,12 +621,22 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
           <Property Type="String" Name="Gatunek" Nullable="true" MaxLength="30" />
           <Property Type="String" Name="Zespół" Nullable="false" MaxLength="60" />
         </ComplexType>
+        <ComplexType Name="UtworyZView_Result">
+          <Property Type="String" Name="Tytul" Nullable="false" MaxLength="60" />
+          <Property Type="Int32" Name="Minuty" Nullable="true" />
+          <Property Type="Int32" Name="Sekundy" Nullable="true" />
+          <Property Type="String" Name="Gatunek" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="Zespół" Nullable="false" MaxLength="60" />
+          <Property Type="Int32" Name="IdAlbumu" Nullable="false" />
+        </ComplexType>
         <EntityType Name="UtworyAlbumuView">
           <Key>
+            <PropertyRef Name="IdUtworu" />
             <PropertyRef Name="Tytul" />
             <PropertyRef Name="Zespół" />
             <PropertyRef Name="IdAlbumu" />
           </Key>
+          <Property Name="IdUtworu" Type="Int32" Nullable="false" />
           <Property Name="Tytul" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
           <Property Name="Minuty" Type="Int32" />
           <Property Name="Sekundy" Type="Int32" />
@@ -622,7 +644,8 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
           <Property Name="Zespół" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
           <Property Name="IdAlbumu" Type="Int32" Nullable="false" />
         </EntityType>
-        <ComplexType Name="UtworyZView_Result">
+        <ComplexType Name="UtworyZView1_Result">
+          <Property Type="Int32" Name="IdUtworu" Nullable="false" />
           <Property Type="String" Name="Tytul" Nullable="false" MaxLength="60" />
           <Property Type="Int32" Name="Minuty" Nullable="true" />
           <Property Type="Int32" Name="Sekundy" Nullable="true" />
@@ -748,6 +771,7 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="DeleteUtworyZView" FunctionName="FonotekaDBModel.Store.DeleteUtworyZView" />
           <EntitySetMapping Name="UtworyAlbumuView">
             <EntityTypeMapping TypeName="FonotekaDBModel.UtworyAlbumuView">
               <MappingFragment StoreEntitySet="UtworyAlbumuView">
@@ -757,12 +781,14 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
                 <ScalarProperty Name="Sekundy" ColumnName="Sekundy" />
                 <ScalarProperty Name="Minuty" ColumnName="Minuty" />
                 <ScalarProperty Name="Tytul" ColumnName="Tytul" />
+                <ScalarProperty Name="IdUtworu" ColumnName="IdUtworu" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="UtworyZView" FunctionName="FonotekaDBModel.Store.UtworyZView">
+          <FunctionImportMapping FunctionImportName="UtworyZView1" FunctionName="FonotekaDBModel.Store.UtworyZView">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="FonotekaDBModel.UtworyZView_Result">
+              <ComplexTypeMapping TypeName="FonotekaDBModel.UtworyZView1_Result">
+                <ScalarProperty Name="IdUtworu" ColumnName="IdUtworu" />
                 <ScalarProperty Name="Tytul" ColumnName="Tytul" />
                 <ScalarProperty Name="Minuty" ColumnName="Minuty" />
                 <ScalarProperty Name="Sekundy" ColumnName="Sekundy" />

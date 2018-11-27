@@ -10,9 +10,8 @@
 namespace Fonoteka2.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class UtworyAlbumuView
+    public partial class UtworyZView1_Result
     {
         public int IdUtworu { get; set; }
         public string Tytul { get; set; }

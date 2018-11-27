@@ -213,6 +213,9 @@
     <Compile Include="Models\UtworyAlbumu_Result.cs">
       <DependentUpon>FonotekaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\UtworyZView1_Result.cs">
+      <DependentUpon>FonotekaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\UtworyZView_Result.cs">
       <DependentUpon>FonotekaModel.tt</DependentUpon>
     </Compile>
@@ -332,6 +335,7 @@
     <Content Include="Views\Performers\Create2.cshtml" />
     <Content Include="Views\Albums\SciezkaDzwiekowa.cshtml" />
     <Content Include="Views\Albums\SciezkaDzwiekowaView.cshtml" />
+    <Content Include="Views\Albums\DeleteZView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

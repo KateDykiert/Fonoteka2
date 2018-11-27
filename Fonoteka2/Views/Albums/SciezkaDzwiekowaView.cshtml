@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Fonoteka2.Models.UtworyZView_Result>
+﻿@model IEnumerable<Fonoteka2.Models.UtworyZView1_Result>
 
 @{
     ViewBag.Title = "SciezkaDzwiekowaView";
@@ -44,8 +44,8 @@
             @Html.DisplayFor(modelItem => item.Zespół)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Edit", "EditZView", new { id = item.IdUtworu, idAlbumu = item.IdAlbumu }) |
+            @Html.ActionLink("Delete", "DeleteZView", new { id = item.IdUtworu, idAlbumu = item.IdAlbumu })
         </td>
     </tr>
 }

@@ -22,7 +22,7 @@ namespace Fonoteka2.Models
     
         public int IdUtworu { get; set; }
         public int IdZespolu { get; set; }
-        public int IdAlbumu { get; set; }
+        public Nullable<int> IdAlbumu { get; set; }
         public int IdGatunku { get; set; }
         public string Tytul { get; set; }
         public Nullable<int> Minuty { get; set; }
