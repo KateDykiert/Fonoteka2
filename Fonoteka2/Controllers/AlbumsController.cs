@@ -31,7 +31,7 @@ namespace Fonoteka2.Controllers
             return View(db.UtworyZView1(id).ToList());
         }
 
-        public ActionResult EditZView(int? id, int? idAlbumu)
+        public ActionResult EditZView(int? id)
         {
             if (id == null)
             {
@@ -48,13 +48,33 @@ namespace Fonoteka2.Controllers
             return View(utwor);
         }
 
-        public ActionResult EditZView([Bind(Include = "IdAlbumu,IdZespolu,IdGatunku,Tytuł,Minuty,Sekundy")] Utwor utwor)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditZView([Bind(Include = "IdUtworu,IdZespolu,IdAlbumu,IdGatunku,Tytul,Minuty,Sekundy")] Utwor utwor)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(utwor).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("SciezkaDzwiekowaView");
+                try
+                {
+                    db.SaveChanges();
+                    return RedirectToAction("SciezkaDzwiekowaView" , new { id = utwor.IdAlbumu});
+                }
+                catch (Exception e)
+                {
+                    if (e.InnerException == null)
+                        ViewBag.Exception = "Niepoprawne dane utworu";
+                    else
+                    {
+                        String msg = e.InnerException.InnerException.Message;
+                        ViewBag.Exception = msg;
+                    }
+                    ViewBag.Exception2 = "Baza danych zwrocila wyjatek!";
+                    ViewBag.IdAlbumu = new SelectList(db.Album, "IdAlbumu", "Nazwa", utwor.IdAlbumu);
+                    ViewBag.IdGatunku = new SelectList(db.Gatunek, "IdGatunku", "Nazwa", utwor.IdGatunku);
+                    ViewBag.IdZespolu = new SelectList(db.Zespol, "IdZespolu", "Nazwa", utwor.IdZespolu);
+                    return View(utwor);
+                }
             }
             ViewBag.IdZespolu = new SelectList(db.Zespol, "IdZespolu", "Nazwa", utwor.IdZespolu);
             ViewBag.IdGatunku = new SelectList(db.Gatunek, "IdGatunku", "Nazwa", utwor.IdGatunku);

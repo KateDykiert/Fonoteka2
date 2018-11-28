@@ -336,6 +336,7 @@
     <Content Include="Views\Albums\SciezkaDzwiekowa.cshtml" />
     <Content Include="Views\Albums\SciezkaDzwiekowaView.cshtml" />
     <Content Include="Views\Albums\DeleteZView.cshtml" />
+    <Content Include="Views\Albums\EditZView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
