@@ -29,7 +29,18 @@ namespace Fonoteka2.Controllers
         public ActionResult SciezkaDzwiekowaView(int? id)
         {
             var czas = db.ZliczCzas(id).ToList();
-            if(czas.Count() > 0)
+            var album = db.Album.FirstOrDefault(p => p.IdAlbumu == id);
+            ViewBag.Album = album.Nazwa;
+
+            var data = db.Album.FirstOrDefault(p => p.IdAlbumu == id);
+            ViewBag.Data = data.DataWydania;
+
+            var tempzespol = db.Album.FirstOrDefault(p => p.IdAlbumu == id);
+            var idzespolu = tempzespol.IdZespolu;
+            var zespol = db.Zespol.FirstOrDefault(p => p.IdZespolu == idzespolu);
+            ViewBag.Zespol = zespol.Nazwa;
+
+            if (czas.Count() > 0)
             {
                 ViewBag.Czas = czas[0].Godziny + " : " + czas[0].Minuty + " : " + czas[0].Sekundy;
             }
