@@ -48,8 +48,24 @@
             @Html.ActionLink("Delete", "DeleteZView", new { id = item.IdUtworu, idAlbumu = item.IdAlbumu })
         </td>
     </tr>
-}
-
+}   <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+</tr>
+    <tr>
+        <td>Czas trwania albumu:</td>
+        <td>
+          @ViewBag.Czas
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
 </table>
 <div>
     @Html.ActionLink("Back to List", "Index")

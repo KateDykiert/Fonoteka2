@@ -228,6 +228,9 @@
     <Compile Include="Models\Zespol.cs">
       <DependentUpon>FonotekaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ZliczCzas_Result.cs">
+      <DependentUpon>FonotekaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -335,7 +338,6 @@
     <Content Include="Views\Performers\Create2.cshtml" />
     <Content Include="Views\Albums\SciezkaDzwiekowa.cshtml" />
     <Content Include="Views\Albums\SciezkaDzwiekowaView.cshtml" />
-    <Content Include="Views\Albums\DeleteZView.cshtml" />
     <Content Include="Views\Albums\EditZView.cshtml" />
   </ItemGroup>
   <ItemGroup>

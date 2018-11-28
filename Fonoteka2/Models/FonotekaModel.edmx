@@ -242,6 +242,9 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
         <Function Name="wyswietlinstrumentywykonawcy" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Idwykonawcy" Type="int" Mode="In" />
         </Function>
+        <Function Name="ZliczCzas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdAlbumu" Type="int" Mode="In" />
+        </Function>
         <Function Name="ZmienTytul" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdUtworu" Type="int" Mode="In" />
           <Parameter Name="Tytul" Type="varchar" Mode="In" />
@@ -601,7 +604,10 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
           </FunctionImport>
           <EntitySet Name="UtworyAlbumuView" EntityType="FonotekaDBModel.UtworyAlbumuView" />
           <FunctionImport Name="UtworyZView1" ReturnType="Collection(FonotekaDBModel.UtworyZView1_Result)">
-            <Parameter Name="IdAlbumu" Mode="In" Type="Int32" />
+          <Parameter Name="IdAlbumu" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="ZliczCzas" ReturnType="Collection(FonotekaDBModel.ZliczCzas_Result)">
+          <Parameter Name="IdAlbumu" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="wyswietlinstrumentywykonawcy_Result">
@@ -652,6 +658,11 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
           <Property Type="String" Name="Gatunek" Nullable="true" MaxLength="30" />
           <Property Type="String" Name="Zespół" Nullable="false" MaxLength="60" />
           <Property Type="Int32" Name="IdAlbumu" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="ZliczCzas_Result">
+          <Property Type="Int32" Name="Godziny" Nullable="true" />
+          <Property Type="Int32" Name="Minuty" Nullable="true" />
+          <Property Type="Int32" Name="Sekundy" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -795,6 +806,15 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
                 <ScalarProperty Name="Gatunek" ColumnName="Gatunek" />
                 <ScalarProperty Name="Zespół" ColumnName="Zespół" />
                 <ScalarProperty Name="IdAlbumu" ColumnName="IdAlbumu" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ZliczCzas" FunctionName="FonotekaDBModel.Store.ZliczCzas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FonotekaDBModel.ZliczCzas_Result">
+                <ScalarProperty Name="Godziny" ColumnName="Godziny" />
+                <ScalarProperty Name="Minuty" ColumnName="Minuty" />
+                <ScalarProperty Name="Sekundy" ColumnName="Sekundy" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

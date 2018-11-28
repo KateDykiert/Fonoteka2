@@ -28,6 +28,12 @@ namespace Fonoteka2.Controllers
 
         public ActionResult SciezkaDzwiekowaView(int? id)
         {
+            var czas = db.ZliczCzas(id).ToList();
+            if(czas.Count() > 0)
+            {
+                ViewBag.Czas = czas[0].Godziny + " : " + czas[0].Minuty + " : " + czas[0].Sekundy;
+            }
+            
             return View(db.UtworyZView1(id).ToList());
         }
 
@@ -85,8 +91,8 @@ namespace Fonoteka2.Controllers
             public ActionResult DeleteZView(int? id, int? idAlbumu)
         {
             db.DeleteUtworyZView(id);
-            return View(db.UtworyZView1(idAlbumu).ToList());
-            
+            return RedirectToAction("SciezkaDzwiekowaView", new { id = idAlbumu });
+
         }
 
         // GET: Albums/Details/5

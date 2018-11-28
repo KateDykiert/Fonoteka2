@@ -176,5 +176,14 @@ namespace Fonoteka2.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<UtworyZView1_Result>("UtworyZView1", idAlbumuParameter);
         }
+    
+        public virtual ObjectResult<ZliczCzas_Result> ZliczCzas(Nullable<int> idAlbumu)
+        {
+            var idAlbumuParameter = idAlbumu.HasValue ?
+                new ObjectParameter("IdAlbumu", idAlbumu) :
+                new ObjectParameter("IdAlbumu", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ZliczCzas_Result>("ZliczCzas", idAlbumuParameter);
+        }
     }
 }
