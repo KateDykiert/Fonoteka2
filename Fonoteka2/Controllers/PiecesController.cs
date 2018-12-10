@@ -14,9 +14,7 @@ namespace Fonoteka2.Controllers
     {
         public static int? a;
         public static byte[] b;
-        
-
-
+     
     }
 
     public class PiecesController : Controller
@@ -142,19 +140,23 @@ namespace Fonoteka2.Controllers
                         ViewBag.Exception = "Niepoprawne dane utworu";
                     else
                     {
+                        globalVariables.b = utwor.Currency;
                         String msg = e.InnerException.Message;
                         ViewBag.Exception = msg;
                     }
 
-                    db = new FonotekaDBEntities3();
                     
+
+                    ModelState.Clear();
+                    db = new FonotekaDBEntities3();
+                    Utwor utwor2 = db.Utwor.Find(utwor.IdUtworu);
 
                     ViewBag.Exception2 = "Baza danych zwrocila wyjatek!";
                     ViewBag.IdAlbumu = new SelectList(db.Album, "IdAlbumu", "Nazwa", utwor.IdAlbumu);
                     ViewBag.IdGatunku = new SelectList(db.Gatunek, "IdGatunku", "Nazwa", utwor.IdGatunku);
                     ViewBag.IdZespolu = new SelectList(db.Zespol, "IdZespolu", "Nazwa", utwor.IdZespolu);
 
-                    return View(utwor);
+                    return View(utwor2);
                     //return Edit(utwor.IdUtworu);
                 }
             }
