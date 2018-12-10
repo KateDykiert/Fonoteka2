@@ -66,6 +66,7 @@
           <Property Name="Tytul" Type="varchar" MaxLength="60" Nullable="false" />
           <Property Name="Minuty" Type="int" />
           <Property Name="Sekundy" Type="int" />
+          <Property Name="Currency" Type="timestamp" StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="Wykonawca">
           <Key>
@@ -209,6 +210,10 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="BezpiecznikEdit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="stare" Type="timestamp" Mode="In" />
+          <Parameter Name="idstare" Type="int" Mode="In" />
+        </Function>
         <Function Name="DeleteUtworyZView" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdUtworu" Type="int" Mode="In" />
         </Function>
@@ -385,6 +390,7 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
           <NavigationProperty Name="Zespol" Relationship="Self.FK__Utwor__IdZespolu__3E52440B" FromRole="Utwor" ToRole="Zespol" />
           <Property Name="Minuty" Type="Int32" />
           <Property Name="Sekundy" Type="Int32" />
+          <Property Name="Currency" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
         </EntityType>
         <EntityType Name="Wykonawca">
           <Key>
@@ -609,6 +615,10 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
           <FunctionImport Name="ZliczCzas" ReturnType="Collection(FonotekaDBModel.ZliczCzas_Result)">
           <Parameter Name="IdAlbumu" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="BezpiecznikEdit">
+            <Parameter Name="stare" Mode="In" Type="Binary" />
+            <Parameter Name="idstare" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="wyswietlinstrumentywykonawcy_Result">
           <Property Type="String" Name="pseudonim" Nullable="true" MaxLength="30" />
@@ -729,6 +739,7 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
           <EntitySetMapping Name="Utwor">
             <EntityTypeMapping TypeName="FonotekaDBModel.Utwor">
               <MappingFragment StoreEntitySet="Utwor">
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
                 <ScalarProperty Name="Sekundy" ColumnName="Sekundy" />
                 <ScalarProperty Name="Minuty" ColumnName="Minuty" />
                 <ScalarProperty Name="IdUtworu" ColumnName="IdUtworu" />
@@ -818,6 +829,7 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="BezpiecznikEdit" FunctionName="FonotekaDBModel.Store.BezpiecznikEdit" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

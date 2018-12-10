@@ -10,9 +10,19 @@ using Fonoteka2.Models;
 
 namespace Fonoteka2.Controllers
 {
+    public static class globalVariables
+    {
+        public static int? a;
+        public static byte[] b;
+        
+
+
+    }
+
     public class PiecesController : Controller
     {
-        private FonotekaDBEntities3 db = new FonotekaDBEntities3();
+       private FonotekaDBEntities3 db = new FonotekaDBEntities3();
+        
 
         // GET: Pieces
         public ActionResult Index()
@@ -82,15 +92,18 @@ namespace Fonoteka2.Controllers
             ViewBag.IdZespolu = new SelectList(db.Zespol, "IdZespolu", "Nazwa", utwor.IdZespolu);
             return View(utwor);
         }
-
+        
         // GET: Pieces/Edit/5
         public ActionResult Edit(int? id)
         {
+            
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Utwor utwor = db.Utwor.Find(id);
+            globalVariables.a = id;
+            globalVariables.b = utwor.Currency;
             if (utwor == null)
             {
                 return HttpNotFound();
@@ -98,6 +111,7 @@ namespace Fonoteka2.Controllers
             ViewBag.IdAlbumu = new SelectList(db.Album, "IdAlbumu", "Nazwa", utwor.IdAlbumu);
             ViewBag.IdGatunku = new SelectList(db.Gatunek, "IdGatunku", "Nazwa", utwor.IdGatunku);
             ViewBag.IdZespolu = new SelectList(db.Zespol, "IdZespolu", "Nazwa", utwor.IdZespolu);
+            
             return View(utwor);
         }
 
@@ -108,12 +122,18 @@ namespace Fonoteka2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IdUtworu,IdZespolu,IdAlbumu,IdGatunku,Tytul,Minuty,Sekundy")] Utwor utwor)
         {
+            
             if (ModelState.IsValid)
             {
                 db.Entry(utwor).State = EntityState.Modified;
+                
+               
                 try
                 {
+
+                    db.BezpiecznikEdit(globalVariables.b, globalVariables.a);
                     db.SaveChanges();
+                    
                     return RedirectToAction("Index");
                 }
                 catch (Exception e)
@@ -122,14 +142,20 @@ namespace Fonoteka2.Controllers
                         ViewBag.Exception = "Niepoprawne dane utworu";
                     else
                     {
-                        String msg = e.InnerException.InnerException.Message;
+                        String msg = e.InnerException.Message;
                         ViewBag.Exception = msg;
                     }
+
+                    db = new FonotekaDBEntities3();
+                    
+
                     ViewBag.Exception2 = "Baza danych zwrocila wyjatek!";
                     ViewBag.IdAlbumu = new SelectList(db.Album, "IdAlbumu", "Nazwa", utwor.IdAlbumu);
                     ViewBag.IdGatunku = new SelectList(db.Gatunek, "IdGatunku", "Nazwa", utwor.IdGatunku);
                     ViewBag.IdZespolu = new SelectList(db.Zespol, "IdZespolu", "Nazwa", utwor.IdZespolu);
+
                     return View(utwor);
+                    //return Edit(utwor.IdUtworu);
                 }
             }
             ViewBag.IdAlbumu = new SelectList(db.Album, "IdAlbumu", "Nazwa", utwor.IdAlbumu);

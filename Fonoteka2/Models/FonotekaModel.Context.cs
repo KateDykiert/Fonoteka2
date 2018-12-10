@@ -185,5 +185,18 @@ namespace Fonoteka2.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<ZliczCzas_Result>("ZliczCzas", idAlbumuParameter);
         }
+    
+        public virtual int BezpiecznikEdit(byte[] stare, Nullable<int> idstare)
+        {
+            var stareParameter = stare != null ?
+                new ObjectParameter("stare", stare) :
+                new ObjectParameter("stare", typeof(byte[]));
+    
+            var idstareParameter = idstare.HasValue ?
+                new ObjectParameter("idstare", idstare) :
+                new ObjectParameter("idstare", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("BezpiecznikEdit", stareParameter, idstareParameter);
+        }
     }
 }
