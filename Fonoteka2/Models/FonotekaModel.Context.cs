@@ -198,5 +198,14 @@ namespace Fonoteka2.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("BezpiecznikEdit", stareParameter, idstareParameter);
         }
+    
+        public virtual int updateAlbumTime(Nullable<int> idAlbumu)
+        {
+            var idAlbumuParameter = idAlbumu.HasValue ?
+                new ObjectParameter("idAlbumu", idAlbumu) :
+                new ObjectParameter("idAlbumu", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("updateAlbumTime", idAlbumuParameter);
+        }
     }
 }

@@ -232,6 +232,9 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
           <Parameter Name="Nazwisko" Type="varchar" Mode="In" />
           <Parameter Name="Pseudonim" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="updateAlbumTime" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idAlbumu" Type="int" Mode="In" />
+        </Function>
         <Function Name="UsunUtwor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdUtworu" Type="int" Mode="In" />
         </Function>
@@ -619,6 +622,9 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
             <Parameter Name="stare" Mode="In" Type="Binary" />
             <Parameter Name="idstare" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="updateAlbumTime">
+            <Parameter Name="idAlbumu" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="wyswietlinstrumentywykonawcy_Result">
           <Property Type="String" Name="pseudonim" Nullable="true" MaxLength="30" />
@@ -830,6 +836,7 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="BezpiecznikEdit" FunctionName="FonotekaDBModel.Store.BezpiecznikEdit" />
+          <FunctionImportMapping FunctionImportName="updateAlbumTime" FunctionName="FonotekaDBModel.Store.updateAlbumTime" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

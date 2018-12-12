@@ -124,14 +124,10 @@ namespace Fonoteka2.Controllers
             if (ModelState.IsValid)
             {
                 db.Entry(utwor).State = EntityState.Modified;
-                
-               
                 try
                 {
-
                     db.BezpiecznikEdit(globalVariables.b, globalVariables.a);
                     db.SaveChanges();
-                    
                     return RedirectToAction("Index");
                 }
                 catch (Exception e)
@@ -145,9 +141,8 @@ namespace Fonoteka2.Controllers
                         ViewBag.Exception = msg;
                     }
 
-                    
-
-                    ModelState.Clear();
+                    // uaktualnienie modelu
+                    ModelState.Clear(); 
                     db = new FonotekaDBEntities3();
                     Utwor utwor2 = db.Utwor.Find(utwor.IdUtworu);
 
@@ -157,14 +152,12 @@ namespace Fonoteka2.Controllers
                     ViewBag.IdZespolu = new SelectList(db.Zespol, "IdZespolu", "Nazwa", utwor.IdZespolu);
 
                     return View(utwor2);
-                    //return Edit(utwor.IdUtworu);
                 }
             }
             ViewBag.IdAlbumu = new SelectList(db.Album, "IdAlbumu", "Nazwa", utwor.IdAlbumu);
             ViewBag.IdGatunku = new SelectList(db.Gatunek, "IdGatunku", "Nazwa", utwor.IdGatunku);
             ViewBag.IdZespolu = new SelectList(db.Zespol, "IdZespolu", "Nazwa", utwor.IdZespolu);
             return View(utwor);
-
         }
 
         // GET: Pieces/Delete/5
