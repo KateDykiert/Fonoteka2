@@ -199,13 +199,37 @@ namespace Fonoteka2.Models
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("BezpiecznikEdit", stareParameter, idstareParameter);
         }
     
-        public virtual int updateAlbumTime(Nullable<int> idAlbumu)
+        public virtual int updateAlbumTime(Nullable<int> idUtworu, Nullable<int> idZespolu, Nullable<int> idAlbumu, Nullable<int> idGatunku, string tytul, Nullable<int> minuty, Nullable<int> sekundy)
         {
+            var idUtworuParameter = idUtworu.HasValue ?
+                new ObjectParameter("idUtworu", idUtworu) :
+                new ObjectParameter("idUtworu", typeof(int));
+    
+            var idZespoluParameter = idZespolu.HasValue ?
+                new ObjectParameter("idZespolu", idZespolu) :
+                new ObjectParameter("idZespolu", typeof(int));
+    
             var idAlbumuParameter = idAlbumu.HasValue ?
                 new ObjectParameter("idAlbumu", idAlbumu) :
                 new ObjectParameter("idAlbumu", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("updateAlbumTime", idAlbumuParameter);
+            var idGatunkuParameter = idGatunku.HasValue ?
+                new ObjectParameter("idGatunku", idGatunku) :
+                new ObjectParameter("idGatunku", typeof(int));
+    
+            var tytulParameter = tytul != null ?
+                new ObjectParameter("tytul", tytul) :
+                new ObjectParameter("tytul", typeof(string));
+    
+            var minutyParameter = minuty.HasValue ?
+                new ObjectParameter("minuty", minuty) :
+                new ObjectParameter("minuty", typeof(int));
+    
+            var sekundyParameter = sekundy.HasValue ?
+                new ObjectParameter("sekundy", sekundy) :
+                new ObjectParameter("sekundy", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("updateAlbumTime", idUtworuParameter, idZespoluParameter, idAlbumuParameter, idGatunkuParameter, tytulParameter, minutyParameter, sekundyParameter);
         }
     }
 }

@@ -123,5 +123,22 @@ namespace Fonoteka2.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult UA()
+        {
+            return View(db.Zespol.ToList());
+        }
+
+        public ActionResult LastAlbums(int? id)
+        {
+            var currentDate = DateTime.Now.Year;
+            var currentMonth = DateTime.Now.Month;
+            var currentDay = DateTime.Now.Day;
+            var lastalbums = from album in db.Album
+                             where album.IdZespolu == id && (album.DataWydania.Year == currentDate || (album.DataWydania.Year == currentDate-1 && currentMonth < album.DataWydania.Month) || (album.DataWydania.Year == currentDate - 1 && currentMonth == album.DataWydania.Month && currentDay > album.DataWydania.Day))
+                             select album;
+
+            return View(lastalbums.ToList());
+        }
     }
 }

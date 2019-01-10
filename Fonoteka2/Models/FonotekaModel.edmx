@@ -233,7 +233,13 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
           <Parameter Name="Pseudonim" Type="varchar" Mode="In" />
         </Function>
         <Function Name="updateAlbumTime" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idUtworu" Type="int" Mode="In" />
+          <Parameter Name="idZespolu" Type="int" Mode="In" />
           <Parameter Name="idAlbumu" Type="int" Mode="In" />
+          <Parameter Name="idGatunku" Type="int" Mode="In" />
+          <Parameter Name="tytul" Type="varchar" Mode="In" />
+          <Parameter Name="minuty" Type="int" Mode="In" />
+          <Parameter Name="sekundy" Type="int" Mode="In" />
         </Function>
         <Function Name="UsunUtwor" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdUtworu" Type="int" Mode="In" />
@@ -623,7 +629,13 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
             <Parameter Name="idstare" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="updateAlbumTime">
+          <Parameter Name="idUtworu" Mode="In" Type="Int32" />
+            <Parameter Name="idZespolu" Mode="In" Type="Int32" />
             <Parameter Name="idAlbumu" Mode="In" Type="Int32" />
+            <Parameter Name="idGatunku" Mode="In" Type="Int32" />
+            <Parameter Name="tytul" Mode="In" Type="String" />
+            <Parameter Name="minuty" Mode="In" Type="Int32" />
+            <Parameter Name="sekundy" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="wyswietlinstrumentywykonawcy_Result">

@@ -67,7 +67,7 @@ namespace Fonoteka2.Controllers
                 ViewBag.Exception = null;
                 try
                 {
-                    db.Utwor.Add(utwor);
+                    db.updateAlbumTime(utwor.IdUtworu, utwor.IdZespolu, utwor.IdAlbumu, utwor.IdGatunku, utwor.Tytul, utwor.Minuty, utwor.Sekundy);
                     db.SaveChanges();
                 }
                 catch (Exception e)

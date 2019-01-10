@@ -339,6 +339,10 @@
     <Content Include="Views\Albums\SciezkaDzwiekowa.cshtml" />
     <Content Include="Views\Albums\SciezkaDzwiekowaView.cshtml" />
     <Content Include="Views\Albums\EditZView.cshtml" />
+    <Content Include="Views\Home\Summary.cshtml" />
+    <Content Include="Views\Home\Widok.cshtml" />
+    <Content Include="Views\Bands\UA.cshtml" />
+    <Content Include="Views\Bands\LastAlbums.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

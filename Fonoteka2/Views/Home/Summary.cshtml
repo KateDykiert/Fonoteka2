@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Message = "Summary";
+}
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <h1>Summary</h1>
+</head>
+<body>
+    <div>
+        @Html.ActionLink("Utwory z ostatniego miesiąca danego wykonawcy", "UA", "Bands") <br />
+        @Html.ActionLink("Czas wszystkich albumów z ostatniego miesiąca", "UA")<br />
+        @Html.ActionLink("n najdłuższych albumów", "UA")<br />
+        @Html.ActionLink("n najpularniejszych gatunków", "UA")<br />
+        @Html.ActionLink("Ostatni miesiąc", "UA")<br />
+        @Html.ActionLink("Ostatni rok", "UA")
+    </div>
+</body>
+</html>

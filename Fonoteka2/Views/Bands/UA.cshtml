@@ -1,0 +1,39 @@
+﻿@model IEnumerable<Fonoteka2.Models.Zespol>
+
+@{
+   // Layout = "Index";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>UA</title>
+</head>
+<body>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nazwa)
+            </th>
+            <th></th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nazwa)
+            </td>
+            <td>
+                @Html.ActionLink("Szukaj", "LastAlbums", new { id=item.IdZespolu })
+            </td>
+        </tr>
+    }
+    
+    </table>
+</body>
+</html>
