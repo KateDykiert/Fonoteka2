@@ -37,6 +37,8 @@ namespace Fonoteka2.Models
         public virtual DbSet<Wykonawca> Wykonawca { get; set; }
         public virtual DbSet<Zespol> Zespol { get; set; }
         public virtual DbSet<UtworyAlbumuView> UtworyAlbumuView { get; set; }
+        public virtual DbSet<NajdluzszeAlbumy> NajdluzszeAlbumy { get; set; }
+        public virtual DbSet<LongestAlbums> LongestAlbums { get; set; }
     
         public virtual int DodajUtwor(Nullable<int> idZespolu, Nullable<int> idAlbumu, Nullable<int> idGatunku, string tytul, Nullable<int> minuty, Nullable<int> sekundy)
         {
@@ -230,6 +232,56 @@ namespace Fonoteka2.Models
                 new ObjectParameter("sekundy", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("updateAlbumTime", idUtworuParameter, idZespoluParameter, idAlbumuParameter, idGatunkuParameter, tytulParameter, minutyParameter, sekundyParameter);
+        }
+    
+        public virtual int CzasZMiesiaca()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("CzasZMiesiaca");
+        }
+    
+        public virtual int Statystyki(ObjectParameter @out, ObjectParameter out2, ObjectParameter out3, ObjectParameter out4)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Statystyki", @out, out2, out3, out4);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> getStat(ObjectParameter @out, ObjectParameter out2, ObjectParameter out3, ObjectParameter out4)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("getStat", @out, out2, out3, out4);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> Stats(ObjectParameter @out, ObjectParameter out2, ObjectParameter out3, ObjectParameter out4)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Stats", @out, out2, out3, out4);
+        }
+    
+        public virtual ObjectResult<test1_Result> test1(ObjectParameter wyjscie, ObjectParameter wyjscie2)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<test1_Result>("test1", wyjscie, wyjscie2);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> testjeden(ObjectParameter wyjscie, ObjectParameter wyjscie2)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("testjeden", wyjscie, wyjscie2);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> testowe(ObjectParameter wyjscie, ObjectParameter wyjscie2)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("testowe", wyjscie, wyjscie2);
+        }
+    
+        public virtual ObjectResult<LongestFromView_Result> LongestFromView()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<LongestFromView_Result>("LongestFromView");
+        }
+    
+        public virtual ObjectResult<Nullable<int>> Staty(ObjectParameter @out, ObjectParameter out2, ObjectParameter out3, ObjectParameter out4)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("Staty", @out, out2, out3, out4);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> CzasZMiesiaca2()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("CzasZMiesiaca2");
         }
     }
 }

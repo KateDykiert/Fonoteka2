@@ -86,6 +86,32 @@
           <Property Name="Nazwa" Type="varchar" MaxLength="60" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6002: The table/view 'FonotekaDB.dbo.LongestAlbums' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="LongestAlbums">
+          <Key>
+            <PropertyRef Name="Tytuł" />
+            <PropertyRef Name="Zespół" />
+          </Key>
+          <Property Name="Tytuł" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Zespół" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="Godziny" Type="int" />
+          <Property Name="Minuty" Type="int" />
+          <Property Name="Sekundy" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FonotekaDB.dbo.NajdluzszeAlbumy' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="NajdluzszeAlbumy">
+          <Key>
+            <PropertyRef Name="Tytuł" />
+            <PropertyRef Name="Zespół" />
+          </Key>
+          <Property Name="Tytuł" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Zespół" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="Godziny" Type="int" />
+          <Property Name="Minuty" Type="int" />
+          <Property Name="Sekundy" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="UtworyAlbumuView">
           <Key>
@@ -214,6 +240,7 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
           <Parameter Name="stare" Type="timestamp" Mode="In" />
           <Parameter Name="idstare" Type="int" Mode="In" />
         </Function>
+        <Function Name="CzasZMiesiaca2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="DeleteUtworyZView" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="IdUtworu" Type="int" Mode="In" />
         </Function>
@@ -231,6 +258,17 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
           <Parameter Name="Imie" Type="varchar" Mode="In" />
           <Parameter Name="Nazwisko" Type="varchar" Mode="In" />
           <Parameter Name="Pseudonim" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="LongestFromView" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Statystyki" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="out" Type="int" Mode="InOut" />
+          <Parameter Name="out2" Type="int" Mode="InOut" />
+          <Parameter Name="out3" Type="int" Mode="InOut" />
+          <Parameter Name="out4" Type="int" Mode="InOut" />
+        </Function>
+        <Function Name="test1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="wyjscie" Type="int" Mode="InOut" />
+          <Parameter Name="wyjscie2" Type="int" Mode="InOut" />
         </Function>
         <Function Name="updateAlbumTime" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="idUtworu" Type="int" Mode="In" />
@@ -273,6 +311,24 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
           <EntitySet Name="Utwor" EntityType="Self.Utwor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Wykonawca" EntityType="Self.Wykonawca" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Zespol" EntityType="Self.Zespol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LongestAlbums" EntityType="Self.LongestAlbums" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [LongestAlbums].[Tytuł] AS [Tytuł], 
+    [LongestAlbums].[Zespół] AS [Zespół], 
+    [LongestAlbums].[Godziny] AS [Godziny], 
+    [LongestAlbums].[Minuty] AS [Minuty], 
+    [LongestAlbums].[Sekundy] AS [Sekundy]
+    FROM [dbo].[LongestAlbums] AS [LongestAlbums]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="NajdluzszeAlbumy" EntityType="Self.NajdluzszeAlbumy" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [NajdluzszeAlbumy].[Tytuł] AS [Tytuł], 
+    [NajdluzszeAlbumy].[Zespół] AS [Zespół], 
+    [NajdluzszeAlbumy].[Godziny] AS [Godziny], 
+    [NajdluzszeAlbumy].[Minuty] AS [Minuty], 
+    [NajdluzszeAlbumy].[Sekundy] AS [Sekundy]
+    FROM [dbo].[NajdluzszeAlbumy] AS [NajdluzszeAlbumy]</DefiningQuery>
+          </EntitySet>
           <EntitySet Name="UtworyAlbumuView" EntityType="Self.UtworyAlbumuView" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [UtworyAlbumuView].[IdUtworu] AS [IdUtworu], 
@@ -629,7 +685,7 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
             <Parameter Name="idstare" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="updateAlbumTime">
-          <Parameter Name="idUtworu" Mode="In" Type="Int32" />
+            <Parameter Name="idUtworu" Mode="In" Type="Int32" />
             <Parameter Name="idZespolu" Mode="In" Type="Int32" />
             <Parameter Name="idAlbumu" Mode="In" Type="Int32" />
             <Parameter Name="idGatunku" Mode="In" Type="Int32" />
@@ -637,6 +693,47 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
             <Parameter Name="minuty" Mode="In" Type="Int32" />
             <Parameter Name="sekundy" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="CzasZMiesiaca" />
+          <EntitySet Name="NajdluzszeAlbumy" EntityType="FonotekaDBModel.NajdluzszeAlbumy" />
+          <FunctionImport Name="Statystyki">
+            <Parameter Name="out" Mode="InOut" Type="Int32" />
+            <Parameter Name="out2" Mode="InOut" Type="Int32" />
+            <Parameter Name="out3" Mode="InOut" Type="Int32" />
+            <Parameter Name="out4" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="getStat" ReturnType="Collection(Int32)">
+            <Parameter Name="out" Mode="InOut" Type="Int32" />
+            <Parameter Name="out2" Mode="InOut" Type="Int32" />
+            <Parameter Name="out3" Mode="InOut" Type="Int32" />
+            <Parameter Name="out4" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Stats" ReturnType="Collection(Int32)">
+            <Parameter Name="out" Mode="InOut" Type="Int32" />
+            <Parameter Name="out2" Mode="InOut" Type="Int32" />
+            <Parameter Name="out3" Mode="InOut" Type="Int32" />
+            <Parameter Name="out4" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="test1" ReturnType="Collection(FonotekaDBModel.test1_Result)">
+            <Parameter Name="wyjscie" Mode="InOut" Type="Int32" />
+            <Parameter Name="wyjscie2" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="testjeden" ReturnType="Collection(Int32)">
+            <Parameter Name="wyjscie" Mode="InOut" Type="Int32" />
+            <Parameter Name="wyjscie2" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="testowe" ReturnType="Collection(Int32)">
+            <Parameter Name="wyjscie" Mode="InOut" Type="Int32" />
+            <Parameter Name="wyjscie2" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="LongestAlbums" EntityType="FonotekaDBModel.LongestAlbums" />
+          <FunctionImport Name="LongestFromView" ReturnType="Collection(FonotekaDBModel.LongestFromView_Result)" />
+          <FunctionImport Name="Staty" ReturnType="Collection(Int32)">
+            <Parameter Name="out" Mode="InOut" Type="Int32" />
+            <Parameter Name="out2" Mode="InOut" Type="Int32" />
+            <Parameter Name="out3" Mode="InOut" Type="Int32" />
+            <Parameter Name="out4" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="CzasZMiesiaca2" ReturnType="Collection(Int32)" />
         </EntityContainer>
         <ComplexType Name="wyswietlinstrumentywykonawcy_Result">
           <Property Type="String" Name="pseudonim" Nullable="true" MaxLength="30" />
@@ -690,6 +787,38 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
         <ComplexType Name="ZliczCzas_Result">
           <Property Type="Int32" Name="Godziny" Nullable="true" />
           <Property Type="Int32" Name="Minuty" Nullable="true" />
+          <Property Type="Int32" Name="Sekundy" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="NajdluzszeAlbumy">
+          <Key>
+            <PropertyRef Name="Tytuł" />
+            <PropertyRef Name="Zespół" />
+          </Key>
+          <Property Name="Tytuł" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Zespół" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Godziny" Type="Int32" />
+          <Property Name="Minuty" Type="Int32" />
+          <Property Name="Sekundy" Type="Int32" />
+        </EntityType>
+        <ComplexType Name="test1_Result">
+          <Property Type="Int32" Name="Column1" Nullable="true" />
+          <Property Type="Int32" Name="Column2" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="LongestAlbums">
+          <Key>
+            <PropertyRef Name="Tytuł" />
+            <PropertyRef Name="Zespół" />
+          </Key>
+          <Property Name="Tytuł" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Zespół" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="Godziny" Type="Int32" />
+          <Property Name="Minuty" Type="Int32" />
+          <Property Name="Sekundy" Type="Int32" />
+        </EntityType>
+        <ComplexType Name="LongestFromView_Result">
+          <Property Type="String" Name="Tytuł" Nullable="true" MaxLength="30" />
+          <Property Type="Int32" Name="Godziny" Nullable="true" />
+          <Property Type="Int32" Name="MInuty" Nullable="true" />
           <Property Type="Int32" Name="Sekundy" Nullable="true" />
         </ComplexType>
       </Schema>
@@ -849,6 +978,53 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="BezpiecznikEdit" FunctionName="FonotekaDBModel.Store.BezpiecznikEdit" />
           <FunctionImportMapping FunctionImportName="updateAlbumTime" FunctionName="FonotekaDBModel.Store.updateAlbumTime" />
+          <EntitySetMapping Name="NajdluzszeAlbumy">
+            <EntityTypeMapping TypeName="FonotekaDBModel.NajdluzszeAlbumy">
+              <MappingFragment StoreEntitySet="NajdluzszeAlbumy">
+                <ScalarProperty Name="Sekundy" ColumnName="Sekundy" />
+                <ScalarProperty Name="Minuty" ColumnName="Minuty" />
+                <ScalarProperty Name="Godziny" ColumnName="Godziny" />
+                <ScalarProperty Name="Zespół" ColumnName="Zespół" />
+                <ScalarProperty Name="Tytuł" ColumnName="Tytuł" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Statystyki" FunctionName="FonotekaDBModel.Store.Statystyki" />
+          <FunctionImportMapping FunctionImportName="getStat" FunctionName="FonotekaDBModel.Store.Statystyki" />
+          <FunctionImportMapping FunctionImportName="Stats" FunctionName="FonotekaDBModel.Store.Statystyki" />
+          <FunctionImportMapping FunctionImportName="test1" FunctionName="FonotekaDBModel.Store.test1">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FonotekaDBModel.test1_Result">
+                <ScalarProperty Name="Column1" ColumnName="Column1" />
+                <ScalarProperty Name="Column2" ColumnName="Column2" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="testjeden" FunctionName="FonotekaDBModel.Store.test1" />
+          <FunctionImportMapping FunctionImportName="testowe" FunctionName="FonotekaDBModel.Store.test1" />
+          <EntitySetMapping Name="LongestAlbums">
+            <EntityTypeMapping TypeName="FonotekaDBModel.LongestAlbums">
+              <MappingFragment StoreEntitySet="LongestAlbums">
+                <ScalarProperty Name="Sekundy" ColumnName="Sekundy" />
+                <ScalarProperty Name="Minuty" ColumnName="Minuty" />
+                <ScalarProperty Name="Godziny" ColumnName="Godziny" />
+                <ScalarProperty Name="Zespół" ColumnName="Zespół" />
+                <ScalarProperty Name="Tytuł" ColumnName="Tytuł" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="LongestFromView" FunctionName="FonotekaDBModel.Store.LongestFromView">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FonotekaDBModel.LongestFromView_Result">
+                <ScalarProperty Name="Tytuł" ColumnName="Tytuł" />
+                <ScalarProperty Name="Godziny" ColumnName="Godziny" />
+                <ScalarProperty Name="MInuty" ColumnName="MInuty" />
+                <ScalarProperty Name="Sekundy" ColumnName="Sekundy" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Staty" FunctionName="FonotekaDBModel.Store.Statystyki" />
+          <FunctionImportMapping FunctionImportName="CzasZMiesiaca2" FunctionName="FonotekaDBModel.Store.CzasZMiesiaca2" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

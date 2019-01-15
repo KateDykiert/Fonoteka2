@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -213,5 +216,63 @@ namespace Fonoteka2.Controllers
             }
             base.Dispose(disposing);
         }
+
+        public ActionResult testowe() {
+            FonotekaDBEntities3 ent = new FonotekaDBEntities3();
+
+            ObjectParameter returnId = new ObjectParameter("wyjscie", typeof(int));
+            ObjectParameter returnId2 = new ObjectParameter("wyjscie2", typeof(int));
+            var value = ent.testowe(returnId, returnId2).ToList();
+            var valu2 = Convert.ToInt32(returnId2.Value);//calling our entity imported function "Bangalore" is our input parameter, returnId is a output parameter, it will receive the output value   
+            ViewBag.Staty = Convert.ToInt32(returnId.Value); //set the out put value to StudentsCount ViewBag  
+            return View();
+        }
+
+        public ActionResult Staty()
+        {
+            FonotekaDBEntities3 ent = new FonotekaDBEntities3();
+
+            ObjectParameter returnId = new ObjectParameter("out", typeof(int));
+            ObjectParameter returnId2 = new ObjectParameter("out2", typeof(int));
+            ObjectParameter returnId3= new ObjectParameter("out3", typeof(int));
+            ObjectParameter returnId4 = new ObjectParameter("out4", typeof(int));
+            var value = ent.Staty(returnId, returnId2, returnId3, returnId4).ToList();
+            var valu1 = Convert.ToInt32(returnId.Value);//calling our entity imported function "Bangalore" is our input parameter, returnId is a output parameter, it will receive the output value   
+            var valu2 = Convert.ToInt32(returnId2.Value);//calling our entity imported function "Bangalore" is our input parameter, returnId is a output parameter, it will receive the output value   
+            var valu3 = Convert.ToInt32(returnId3.Value);//calling our entity imported function "Bangalore" is our input parameter, returnId is a output parameter, it will receive the output value   
+
+            var valu4 = Convert.ToInt32(returnId4.Value);//calling our entity imported function "Bangalore" is our input parameter, returnId is a output parameter, it will receive the output value   
+            ViewBag.sum = Convert.ToInt32(returnId.Value); //set the out put value to StudentsCount ViewBag  
+            ViewBag.average = Convert.ToInt32(returnId2.Value);
+            ViewBag.max = Convert.ToInt32(returnId3.Value);
+            ViewBag.min = Convert.ToInt32(returnId4.Value);
+            return View();
+        }
+
+
+        public ActionResult CZM()
+        {
+            var czas = db.CzasZMiesiaca2().ToList();
+            int czas2 = (int)czas[0];
+            int godz = czas2 / 3600;
+            int min = czas2 / 60;
+            int sek = czas2 % 60;
+            ViewBag.czas = czas;
+            return View();
+        }
+
+
+        //public ActionResult Getstats() {
+        //    FonotekaDBEntities3 ent = new FonotekaDBEntities3();
+
+        //        ObjectParameter returnId = new ObjectParameter("sum", typeof(int));
+        //        ObjectParameter returnId2 = new ObjectParameter("srednia", typeof(int));
+        //        var value = ent.Stats(returnId,returnId2).ToList(); //calling our entity imported function "Bangalore" is our input parameter, returnId is a output parameter, it will receive the output value   
+        //        ViewBag.Staty = Convert.ToInt32(returnId.Value); //set the out put value to StudentsCount ViewBag  
+        //    return View();
+        //}
+
+
+
     }
 }

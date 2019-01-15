@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Fonoteka2.Models;
+using MongoDB.Bson;
+using MongoDB.Driver;
 
 namespace Fonoteka2.Controllers
 {
@@ -17,10 +19,27 @@ namespace Fonoteka2.Controllers
      
     }
 
+   
+
     public class PiecesController : Controller
     {
        private FonotekaDBEntities3 db = new FonotekaDBEntities3();
-        
+
+        public void SendToMongoDB(String Stacktrace, String Msg, DateTime data)
+        {
+            var MyClient = new MongoClient();
+            var MyMongoDB = MyClient.GetDatabase("FonotekaLogs");
+            var MyCollection = MyMongoDB.GetCollection<BsonDocument>("Logs");
+            var MyDocumnt = new BsonDocument
+                 {
+                     {"StackTrace", Stacktrace},
+                     {"Message", Msg},
+                     {"Date", data},
+
+                 };
+             MyCollection.InsertOneAsync(MyDocumnt);
+                       
+        }
 
         // GET: Pieces
         public ActionResult Index()
@@ -76,6 +95,7 @@ namespace Fonoteka2.Controllers
                         ViewBag.Exception = "Niepoprawne dane utworu";
                     else
                         ViewBag.Exception = e.InnerException.InnerException.Message;
+                    
                     ViewBag.Exception2 = "Baza danych zwrocila wyjatek!";
                     ViewBag.IdZespolu = new SelectList(db.Zespol, "IdZespolu", "Nazwa");
                     ViewBag.IdAlbumu = new SelectList(db.Album, "IdAlbumu", "Nazwa");
@@ -137,7 +157,11 @@ namespace Fonoteka2.Controllers
                     else
                     {
                         globalVariables.b = utwor.Currency;
-                        String msg = e.InnerException.Message;
+                        String msg = e.InnerException.InnerException.Message;
+
+                        SendToMongoDB(e.StackTrace, e.InnerException.InnerException.Message, DateTime.Now);
+
+                        //String msg = e.InnerException.Source + "||||||"+ e.StackTrace + "|||||" + e.InnerException.Message;
                         ViewBag.Exception = msg;
                     }
 

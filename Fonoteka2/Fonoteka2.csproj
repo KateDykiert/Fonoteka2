@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DnsClient, Version=1.0.7.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
+      <HintPath>..\packages\DnsClient.1.0.7\lib\net45\DnsClient.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -52,9 +55,24 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="MongoDB.Bson, Version=2.7.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Bson.2.7.2\lib\net45\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=2.7.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.2.7.2\lib\net45\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core, Version=2.7.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.Core.2.7.2\lib\net45\MongoDB.Driver.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.3.0\lib\netstandard1.1\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.0.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
@@ -192,10 +210,22 @@
     <Compile Include="Models\Instrument.cs">
       <DependentUpon>FonotekaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\LongestAlbums.cs">
+      <DependentUpon>FonotekaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\LongestFromView_Result.cs">
+      <DependentUpon>FonotekaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NajdluzszeAlbumy.cs">
+      <DependentUpon>FonotekaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Playlista.cs">
       <DependentUpon>FonotekaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Przynaleznosc.cs">
+      <DependentUpon>FonotekaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\test1_Result.cs">
       <DependentUpon>FonotekaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Umiejetnosc.cs">
@@ -343,6 +373,9 @@
     <Content Include="Views\Home\Widok.cshtml" />
     <Content Include="Views\Bands\UA.cshtml" />
     <Content Include="Views\Bands\LastAlbums.cshtml" />
+    <Content Include="Views\Albums\Staty.cshtml" />
+    <Content Include="Views\Genres\GetTop3.cshtml" />
+    <Content Include="Views\Albums\CZM.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

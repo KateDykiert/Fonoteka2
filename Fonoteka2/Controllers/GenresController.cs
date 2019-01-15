@@ -20,6 +20,33 @@ namespace Fonoteka2.Controllers
             return View(db.Gatunek.ToList());
         }
 
+        
+
+        public ActionResult GetTop3()
+        {
+            var top3gat = (from g in db.Gatunek
+                           join u in db.Utwor
+                           on g.IdGatunku equals u.IdGatunku
+                           group g by g.Nazwa
+                            into t
+                           orderby t.Count() descending
+                           select new { Gatunek = t.Distinct(), Liczba = t.Count() }).Take(3).ToList();
+
+            var list = new List<Tuple<Fonoteka2.Models.Gatunek, int>>();
+            foreach(var element in top3gat)
+            {
+                foreach(var el in element.Gatunek)
+                {
+                    list.Add(new Tuple<Fonoteka2.Models.Gatunek, int>(el, element.Liczba));
+                }
+            }
+            
+
+          ViewBag.Top3Gatunek = list;
+            
+            return View();
+        }
+
         // GET: Genres/Details/5
         public ActionResult Details(int? id)
         {
