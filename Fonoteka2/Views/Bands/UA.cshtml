@@ -12,9 +12,6 @@
     <title>UA</title>
 </head>
 <body>
-    <p>
-        @Html.ActionLink("Create New", "Create")
-    </p>
     <table class="table">
         <tr>
             <th>
@@ -22,18 +19,20 @@
             </th>
             <th></th>
         </tr>
-    
-    @foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nazwa)
-            </td>
-            <td>
-                @Html.ActionLink("Szukaj", "LastAlbums", new { id=item.IdZespolu })
-            </td>
-        </tr>
-    }
-    
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nazwa)
+                </td>
+                <td>
+                    @Html.ActionLink("Szukaj", "LastAlbums", new { id = item.IdZespolu })
+                </td>
+            </tr>
+        }
+
     </table>
+    <p>@Html.ActionLink("Back to Summary List", "Summary", "Home")</p>
 </body>
 </html>

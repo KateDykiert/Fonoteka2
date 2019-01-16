@@ -283,5 +283,15 @@ namespace Fonoteka2.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("CzasZMiesiaca2");
         }
+    
+        public virtual ObjectResult<StatystykiRok_Result> StatystykiRok(ObjectParameter @out, ObjectParameter out2, ObjectParameter out3, ObjectParameter out4)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<StatystykiRok_Result>("StatystykiRok", @out, out2, out3, out4);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> StatyRok(ObjectParameter @out, ObjectParameter out2, ObjectParameter out3, ObjectParameter out4)
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("StatyRok", @out, out2, out3, out4);
+        }
     }
 }

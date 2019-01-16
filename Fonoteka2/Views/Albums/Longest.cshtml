@@ -1,7 +1,8 @@
-﻿@model IEnumerable<Fonoteka2.Models.Album>
+﻿
+@model IEnumerable<Fonoteka2.Models.LongestFromView_Result>
 
 @{
-    //Layout = null;
+  //  Layout = null;
 }
 
 <!DOCTYPE html>
@@ -9,29 +10,26 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>LastAlbums</title>
+    <h1>5 najdłuższych albumów</h1>
 </head>
 <body>
+
     <table class="table">
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Nazwa)
+                @Html.DisplayNameFor(model => model.Tytuł)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DataWydania)
-            </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.Godziny)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Minuty)
+                @Html.DisplayNameFor(model => model.MInuty)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Sekundy)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Zespol.Nazwa)
-            </th>
+
             <th></th>
         </tr>
 
@@ -39,28 +37,23 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Nazwa)
+                    @Html.DisplayFor(modelItem => item.Tytuł)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DataWydania)
-                </td>
+
                 <td>
                     @Html.DisplayFor(modelItem => item.Godziny)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Minuty)
+                    @Html.DisplayFor(modelItem => item.MInuty)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Sekundy)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Zespol.Nazwa)
-                </td>
-                <td></td>
+
             </tr>
         }
 
     </table>
-    <p>@Html.ActionLink("Back to Bands", "UA")</p>
+    <p>@Html.ActionLink("Back to Summary List", "Summary", "Home")</p>
 </body>
 </html>

@@ -266,6 +266,12 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
           <Parameter Name="out3" Type="int" Mode="InOut" />
           <Parameter Name="out4" Type="int" Mode="InOut" />
         </Function>
+        <Function Name="StatystykiRok" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="out" Type="int" Mode="InOut" />
+          <Parameter Name="out2" Type="int" Mode="InOut" />
+          <Parameter Name="out3" Type="int" Mode="InOut" />
+          <Parameter Name="out4" Type="int" Mode="InOut" />
+        </Function>
         <Function Name="test1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="wyjscie" Type="int" Mode="InOut" />
           <Parameter Name="wyjscie2" Type="int" Mode="InOut" />
@@ -734,6 +740,18 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
             <Parameter Name="out4" Mode="InOut" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="CzasZMiesiaca2" ReturnType="Collection(Int32)" />
+          <FunctionImport Name="StatystykiRok" ReturnType="Collection(FonotekaDBModel.StatystykiRok_Result)">
+            <Parameter Name="out" Mode="InOut" Type="Int32" />
+            <Parameter Name="out2" Mode="InOut" Type="Int32" />
+            <Parameter Name="out3" Mode="InOut" Type="Int32" />
+            <Parameter Name="out4" Mode="InOut" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="StatyRok" ReturnType="Collection(Int32)">
+            <Parameter Name="out" Mode="InOut" Type="Int32" />
+            <Parameter Name="out2" Mode="InOut" Type="Int32" />
+            <Parameter Name="out3" Mode="InOut" Type="Int32" />
+            <Parameter Name="out4" Mode="InOut" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="wyswietlinstrumentywykonawcy_Result">
           <Property Type="String" Name="pseudonim" Nullable="true" MaxLength="30" />
@@ -820,6 +838,12 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
           <Property Type="Int32" Name="Godziny" Nullable="true" />
           <Property Type="Int32" Name="MInuty" Nullable="true" />
           <Property Type="Int32" Name="Sekundy" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="StatystykiRok_Result">
+          <Property Type="Int32" Name="Column1" Nullable="true" />
+          <Property Type="Int32" Name="Column2" Nullable="true" />
+          <Property Type="Int32" Name="Column3" Nullable="true" />
+          <Property Type="Int32" Name="Column4" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1025,6 +1049,17 @@ warning 6002: The table/view 'FonotekaDB.dbo.UtworyAlbumuView' does not have a p
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="Staty" FunctionName="FonotekaDBModel.Store.Statystyki" />
           <FunctionImportMapping FunctionImportName="CzasZMiesiaca2" FunctionName="FonotekaDBModel.Store.CzasZMiesiaca2" />
+          <FunctionImportMapping FunctionImportName="StatystykiRok" FunctionName="FonotekaDBModel.Store.StatystykiRok">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="FonotekaDBModel.StatystykiRok_Result">
+                <ScalarProperty Name="Column1" ColumnName="Column1" />
+                <ScalarProperty Name="Column2" ColumnName="Column2" />
+                <ScalarProperty Name="Column3" ColumnName="Column3" />
+                <ScalarProperty Name="Column4" ColumnName="Column4" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="StatyRok" FunctionName="FonotekaDBModel.Store.StatystykiRok" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

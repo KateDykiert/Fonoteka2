@@ -11,8 +11,9 @@
     <title>CZM</title>
 </head>
 <body>
-    <div> 
-       <h2> Czas z ostatniego miesiaca : @ViewBag.czas[0] </h2>
+    <div>
+        <h2> Czas z ostatniego miesiaca : @ViewBag.H : @ViewBag.M : @ViewBag.S </h2>
     </div>
+    <p>@Html.ActionLink("Back to Summary List", "Summary", "Home")</p>
 </body>
 </html>

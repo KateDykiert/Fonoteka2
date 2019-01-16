@@ -7,7 +7,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>GetTop3</title>
+    <h1>3 najpopularniejsze gatunki</h1>
 </head>
 <body>
     <table class="table">
@@ -23,17 +23,18 @@
 
         @foreach (var item in ViewBag.Top3Gatunek)
         {
-        <tr>
-            <td>
-                @item.Item1.Nazwa
-            </td>
-            <td>
-                @item.Item2
-            </td>
+            <tr>
+                <td>
+                    @item.Item1.Nazwa
+                </td>
+                <td>
+                    @item.Item2
+                </td>
 
-        </tr>
+            </tr>
         }
 
     </table>
+    <p>@Html.ActionLink("Back to Summary List", "Summary", "Home")</p>
 </body>
 </html>

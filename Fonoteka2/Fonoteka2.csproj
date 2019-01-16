@@ -225,6 +225,9 @@
     <Compile Include="Models\Przynaleznosc.cs">
       <DependentUpon>FonotekaModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\StatystykiRok_Result.cs">
+      <DependentUpon>FonotekaModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\test1_Result.cs">
       <DependentUpon>FonotekaModel.tt</DependentUpon>
     </Compile>
@@ -376,6 +379,8 @@
     <Content Include="Views\Albums\Staty.cshtml" />
     <Content Include="Views\Genres\GetTop3.cshtml" />
     <Content Include="Views\Albums\CZM.cshtml" />
+    <Content Include="Views\Albums\StatyRok.cshtml" />
+    <Content Include="Views\Albums\Longest.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
