@@ -25,7 +25,7 @@ namespace Fonoteka2.Controllers
     {
        private FonotekaDBEntities3 db = new FonotekaDBEntities3();
 
-        public void SendToMongoDB(String Stacktrace, String Msg, DateTime data)
+        public void SendToMongoDB(String Stacktrace, String Msg, DateTime date)
         {
             var MyClient = new MongoClient();
             var MyMongoDB = MyClient.GetDatabase("FonotekaLogs");
@@ -34,11 +34,11 @@ namespace Fonoteka2.Controllers
                  {
                      {"StackTrace", Stacktrace},
                      {"Message", Msg},
-                     {"Date", data},
+                     {"Date", date},
 
                  };
-             MyCollection.InsertOneAsync(MyDocumnt);
-                       
+             MyCollection.InsertOne(MyDocumnt);
+                        
         }
 
         // GET: Pieces
@@ -93,9 +93,12 @@ namespace Fonoteka2.Controllers
                 {
                     if (e.InnerException == null)
                         ViewBag.Exception = "Niepoprawne dane utworu";
+
                     else
                         ViewBag.Exception = e.InnerException.InnerException.Message;
-                    
+
+                    SendToMongoDB(e.StackTrace, e.InnerException.InnerException.Message, DateTime.Now);
+
                     ViewBag.Exception2 = "Baza danych zwrocila wyjatek!";
                     ViewBag.IdZespolu = new SelectList(db.Zespol, "IdZespolu", "Nazwa");
                     ViewBag.IdAlbumu = new SelectList(db.Album, "IdAlbumu", "Nazwa");
@@ -161,7 +164,6 @@ namespace Fonoteka2.Controllers
 
                         SendToMongoDB(e.StackTrace, e.InnerException.InnerException.Message, DateTime.Now);
 
-                        //String msg = e.InnerException.Source + "||||||"+ e.StackTrace + "|||||" + e.InnerException.Message;
                         ViewBag.Exception = msg;
                     }
 
